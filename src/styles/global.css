@@ -807,6 +807,46 @@ img {
   outline-offset: 2px;
 }
 
+/* ---------- no computador: o recibo numa mesa ---------- */
+@media (min-width: 46rem) {
+  body {
+    background: #241812;
+  }
+
+  .folha {
+    max-width: 29rem;
+    margin: 3rem auto;
+    background: var(--creme);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      0 26px 60px -18px rgba(0, 0, 0, 0.55);
+  }
+
+  /* dentro do cartão o cabeçalho e os filtros não precisam grudar na tela */
+  .topo,
+  .controles {
+    position: static;
+  }
+
+  .controles {
+    background: transparent;
+  }
+
+  /* barra do zap acompanha a largura do cartão */
+  .zap-barra {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: 29rem;
+    max-width: calc(100vw - 2rem);
+    border: 1px solid var(--linha);
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

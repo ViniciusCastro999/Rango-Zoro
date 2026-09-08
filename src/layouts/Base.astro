@@ -43,18 +43,20 @@ const CONTADOR = 'rangozoro';
     />
   </head>
   <body>
-    <header class="topo">
-      <div class="topo__envelope">
-        <a class="marca" href={u()} aria-label="RangoZoro"
-          >rango<span class="marca__z">zoro</span><span class="marca__dot">.</span></a
-        >
-        <a class="topo__link" href={u('sobre')}>Como funciona</a>
-      </div>
-    </header>
+    <div class="folha">
+      <header class="topo">
+        <div class="topo__envelope">
+          <a class="marca" href={u()} aria-label="RangoZoro"
+            >rango<span class="marca__z">zoro</span><span class="marca__dot">.</span></a
+          >
+          <a class="topo__link" href={u('sobre')}>Como funciona</a>
+        </div>
+      </header>
 
-    <main>
-      <slot />
-    </main>
+      <main>
+        <slot />
+      </main>
+    </div>
 
     <script>
       import '../scripts/app.js';

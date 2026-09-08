@@ -91,11 +91,10 @@ troque `CONTADOR` em `src/layouts/Base.astro`). O painel fica em
 
 ## Pendências antes de divulgar
 
-- [ ] Trocar os WhatsApp `5535999990001` a `5535999990004` dos lugares de exemplo pelos
-      reais (ou apagar as 4 pastas de exemplo em `restaurantes/`).
+- [ ] Os 3 lugares em `restaurantes/` são exemplos com WhatsApp fake
+      (`5535999990001` a `5535999990003`). Trocar pelos reais ou apagar quando entrar
+      restaurante de verdade.
 - [ ] Definir o WhatsApp oficial do RangoZoro em
       [`src/pages/sobre.astro`](src/pages/sobre.astro) (`CONTATO`).
-- [ ] `restaurantes/cantinho-da-serra/` está com dados de contato e horário **inventados**
-      para teste. Trocar pelos reais.
 - [ ] `public/marca/og.svg` funciona no preview de link, mas alguns apps só aceitam PNG.
       Se quiser, exportar um `og.png` 1200x630 e apontar nele no `src/layouts/Base.astro`.
