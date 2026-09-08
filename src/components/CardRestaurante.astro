@@ -1,6 +1,7 @@
 ---
 import StatusAberto from './StatusAberto.astro';
 import { u } from '../lib/url';
+import { statusAgora } from '../lib/horario.js';
 import type { Restaurante } from '../lib/restaurantes';
 
 interface Props {
@@ -9,6 +10,10 @@ interface Props {
 
 const { r } = Astro.props;
 const busca = [r.nome, r.categoria, ...(r.cozinha ?? []), r.bairro].filter(Boolean).join(' ');
+const abertoAgora = statusAgora(r.horarios ?? {}, {
+  pausado: r.pausado,
+  pausaMotivo: r.pausa_motivo,
+}).aberto;
 ---
 
 <li>
@@ -18,7 +23,7 @@ const busca = [r.nome, r.categoria, ...(r.cozinha ?? []), r.bairro].filter(Boole
     data-card
     data-categoria={r.categoria}
     data-busca={busca}
-    data-aberto="false"
+    data-aberto={String(abertoAgora)}
   >
     <span class="card__emoji" aria-hidden="true">{r.emoji ?? '🍽️'}</span>
     <span class="card__corpo">
