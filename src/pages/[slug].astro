@@ -7,8 +7,9 @@ import { horarioSemana, agoraEmZoro } from '../lib/horario.js';
 import { linkWhatsapp } from '../lib/links';
 import { u } from '../lib/url';
 
-export function getStaticPaths() {
-  return getRestaurantes().map((r) => ({ params: { slug: r.slug }, props: { r } }));
+export async function getStaticPaths() {
+  const lista = await getRestaurantes();
+  return lista.map((r) => ({ params: { slug: r.slug }, props: { r } }));
 }
 
 const { r } = Astro.props;

@@ -4,7 +4,7 @@ import CardRestaurante from '../components/CardRestaurante.astro';
 import { getRestaurantes, getCategorias } from '../lib/restaurantes';
 import { u } from '../lib/url';
 
-const restaurantes = getRestaurantes();
+const restaurantes = await getRestaurantes();
 const categorias = getCategorias(restaurantes);
 const total = restaurantes.length;
 ---
