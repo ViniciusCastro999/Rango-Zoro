@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
-  <g fill="none" stroke="#f7eccf" stroke-opacity="0.05" stroke-width="2.5" stroke-linecap="round">
+  <g fill="none" stroke="#2b1b12" stroke-opacity="0.06" stroke-width="2.5" stroke-linecap="round">
     <line x1="-12" y1="48" x2="332" y2="48" stroke-dasharray="2 11" />
     <line x1="-12" y1="188" x2="210" y2="188" stroke-dasharray="2 11" />
     <line x1="128" y1="266" x2="332" y2="266" stroke-dasharray="2 11" />
   </g>
-  <g fill="#f7eccf" fill-opacity="0.042" font-family="'Courier New', monospace" font-weight="700">
+  <g fill="#2b1b12" fill-opacity="0.05" font-family="'Courier New', monospace" font-weight="700">
     <text x="28" y="112" font-size="27">[x]</text>
     <text x="214" y="112" font-size="25">R$</text>
     <text x="36" y="250" font-size="27">[ ]</text>
     <text x="160" y="304" font-size="21">1x</text>
   </g>
-  <g fill="#f7eccf" fill-opacity="0.045">
+  <g fill="#2b1b12" fill-opacity="0.055">
     <circle cx="128" cy="160" r="2.4" /><circle cx="145" cy="160" r="2.4" />
     <circle cx="162" cy="160" r="2.4" /><circle cx="179" cy="160" r="2.4" />
     <circle cx="196" cy="160" r="2.4" />
     <path d="M262 44 c-7 -10 -7 -18 0 -26 c7 8 7 16 0 26 z" />
-    <circle cx="262" cy="26" r="2.6" fill="#1f1008" />
+    <circle cx="262" cy="26" r="2.6" fill="#d62d20" fill-opacity="0.5" />
   </g>
 </svg>

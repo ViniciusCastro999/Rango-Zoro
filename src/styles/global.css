@@ -933,31 +933,34 @@ img {
 /* ---------- no computador: o recibo numa mesa ---------- */
 @media (min-width: 46rem) {
   body {
-    background-color: #211208;
+    background-color: #e8ddc5;
   }
 
-  /* balcão: textura de recibo (tracejado, [x], R$, pontinhos) meio apagada,
+  /* balcão: textura de recibo (tracejado, [x], R$, pontinhos) bem apagada,
      de leve na diagonal, só no espaço vazio ao redor do cartão */
   body::before {
     content: "";
     position: fixed;
-    inset: -30%;
+    inset: -20%;
     background-image: url("./textura-recibo.svg");
-    background-size: 320px 320px;
-    transform: rotate(-9deg);
+    background-size: 300px 300px;
+    transform: rotate(-4deg);
     pointer-events: none;
     z-index: 0;
   }
 
+  /* poça de luz clara atrás do cartão + cantos da tela um tico mais fechados */
   body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background: radial-gradient(
-      42rem 48rem at 50% 42%,
-      rgba(60, 38, 22, 0.55),
-      rgba(33, 18, 8, 0) 72%
-    );
+    background:
+      radial-gradient(
+        36rem 44rem at 50% 36%,
+        rgba(255, 251, 240, 0.6),
+        rgba(255, 251, 240, 0) 70%
+      ),
+      radial-gradient(130% 90% at 50% -10%, rgba(43, 27, 18, 0) 55%, rgba(43, 27, 18, 0.07));
     pointer-events: none;
     z-index: 0;
   }
@@ -966,13 +969,14 @@ img {
     position: relative;
     z-index: 1;
     max-width: 29rem;
-    margin: 3rem auto;
+    margin: 3rem auto 4rem;
     background: var(--creme);
-    border-radius: 6px;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.04),
-      0 26px 60px -18px rgba(0, 0, 0, 0.6);
+      0 0 0 1px rgba(43, 27, 18, 0.07),
+      0 2px 6px rgba(43, 27, 18, 0.05),
+      0 24px 50px -16px rgba(43, 27, 18, 0.3);
   }
 
   /* dentro do cartão o cabeçalho e os filtros não precisam grudar na tela */
