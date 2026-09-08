@@ -1,0 +1,21 @@
+# Dados fixos do lugar. Edite à mão quando mudar horário, taxa ou WhatsApp.
+nome: Buteco de Minas
+categoria: Hambúrguer
+cozinha: [lanche, hambúrguer, porções, buteco, suco]
+bairro: Centro # CONFIRMAR
+endereco: "" # CONFIRMAR
+whatsapp: "5535997666991"
+instagram: "" # CONFIRMAR
+emoji: "🍔"
+taxa_entrega: "" # CONFIRMAR
+pagamentos: [Pix, Dinheiro, Cartão] # CONFIRMAR
+
+# HORÁRIO CHUTADO, confirmar antes de divulgar
+horarios:
+  seg: null
+  ter: ["18:00", "23:59"]
+  qua: ["18:00", "23:59"]
+  qui: ["18:00", "23:59"]
+  sex: ["18:00", "23:59"]
+  sab: ["18:00", "23:59"]
+  dom: ["18:00", "23:00"]

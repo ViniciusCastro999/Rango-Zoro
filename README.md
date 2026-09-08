@@ -27,7 +27,7 @@ Cada lugar é uma pasta em `restaurantes/`:
 
 ```
 restaurantes/
-  pizzaria-do-ze/
+  cantinho-da-serra/
     info.yaml        # nome, WhatsApp, bairro, horário, taxa (editado à mão)
     cardapio.yaml    # itens e preços (gerado pelo /sync-cardapio, revisado por você)
     fontes/          # fotos, prints e PDFs do cardápio (não vão pro git)
@@ -43,7 +43,7 @@ O site é gerado desses YAMLs no `npm run build`. Não tem banco de dados nem pa
    - `site_pedido`: use no lugar do `whatsapp` quando o restaurante recebe pedido por um
      site de fora (Anota AI, Goomer, site próprio). Nesse caso o RangoZoro só mostra um
      botão que leva pra lá, o cardápio fica só pra ver (sem montar a lista) e não tem
-     total. Exemplo: `restaurantes/marmitex-da-cida/`.
+     total.
    - `taxa_entrega` (texto) e `taxa_entrega_valor` (número, `0` para grátis): o número é
      somado no total do pedido montado no cardápio. Sem ele, a entrega aparece como
      "a combinar".
@@ -111,9 +111,8 @@ troque `CONTADOR` em `src/layouts/Base.astro`). O painel fica em
 
 ## Pendências antes de divulgar
 
-- [ ] Os 3 lugares em `restaurantes/` são exemplos com WhatsApp fake
-      (`5535999990001` a `5535999990003`). Trocar pelos reais ou apagar quando entrar
-      restaurante de verdade.
+- [ ] Conferir os dados de contato dos lugares em `restaurantes/` (WhatsApp, horário,
+      bairro, taxa). Alguns campos ainda estão marcados com `# CONFIRMAR` ou "TESTE".
 - [ ] Definir o WhatsApp oficial do RangoZoro em
       [`src/pages/sobre.astro`](src/pages/sobre.astro) (`CONTATO`).
 - [ ] `public/marca/og.svg` funciona no preview de link, mas alguns apps só aceitam PNG.

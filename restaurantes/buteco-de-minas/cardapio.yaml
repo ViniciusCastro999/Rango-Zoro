@@ -1,0 +1,198 @@
+# Gerado a partir das fotos do cardápio de lanches (2 páginas). Revisado por você.
+# O almoço "cardápio do dia" (marmita) ainda não entrou, muda todo dia.
+atualizado_em: "2026-09-08"
+
+categorias:
+  - nome: Hambúrgueres artesanais
+    itens:
+      - nome: Misto Quente
+        preco: 14.00
+        descricao: Pão, presunto e queijo
+      - nome: Bauru
+        preco: 15.00
+        descricao: Pão, presunto, queijo e tomate
+      - nome: Vegetariano
+        preco: 20.00
+        descricao: Pão, 2 ovos, alface, tomate, milho, queijo e cheddar
+      - nome: Americano
+        preco: 20.00
+        descricao: Pão, 2 ovos, presunto, queijo, alface, tomate e milho
+      - nome: X-Frango
+        preco: 20.00
+        descricao: Pão, queijo, alface, tomate, milho e frango
+      - nome: X-Burguer
+        preco: 18.00
+        descricao: Pão, queijo, tomate e hambúrguer
+      - nome: X-Salada
+        preco: 20.00
+        descricao: Pão, queijo, alface, tomate, milho e hambúrguer
+      - nome: X-Calabresa
+        preco: 22.00
+        descricao: Pão, queijo, alface, tomate, milho e calabresa
+      - nome: X-Lombo
+        preco: 22.00
+        descricao: Pão, queijo, alface, tomate, milho e lombo
+      - nome: X-Bacon
+        preco: 22.00
+        descricao: Pão, queijo, tomate, hambúrguer e bacon
+      - nome: X-Egg
+        preco: 22.00
+        descricao: Pão, 2 ovos, queijo, alface, tomate, milho e hambúrguer
+      - nome: X-Salada Bacon
+        preco: 24.00
+        descricao: Pão, queijo, alface, tomate, hambúrguer e bacon
+      - nome: Buteco Duplo Cheddar
+        preco: 27.00
+        descricao: Pão, 2x queijo, 2x cheddar e 2x hambúrgueres
+      - nome: X-Tudo
+        preco: 29.00
+        descricao: Pão, ovo, queijo, salada, bacon, calabresa, frango e hambúrguer
+      - nome: Buteco Especial
+        preco: 32.00
+        descricao: Pão, ovo, presunto, queijo, salada, bacon, calabresa, frango, cheddar e hambúrguer
+
+  - nome: Hambúrgueres de costela
+    itens:
+      - nome: X-Burguer de costela
+        preco: 21.00
+      - nome: X-Salada de costela
+        preco: 23.00
+      - nome: X-Bacon de costela
+        preco: 25.00
+      - nome: X-Egg de costela
+        preco: 25.00
+      - nome: X-Salada Bacon de costela
+        preco: 27.00
+      - nome: Buteco Duplo Cheddar de costela
+        preco: 30.00
+      - nome: X-Tudo de costela
+        preco: 32.00
+      - nome: Buteco Especial de costela
+        preco: 35.00
+
+  - nome: Hambúrgueres de fraldinha
+    itens:
+      - nome: X-Burguer de fraldinha
+        preco: 22.00
+      - nome: X-Salada de fraldinha
+        preco: 24.00
+      - nome: X-Bacon de fraldinha
+        preco: 26.00
+      - nome: X-Egg de fraldinha
+        preco: 26.00
+      - nome: X-Salada Bacon de fraldinha
+        preco: 28.00
+      - nome: Buteco Duplo Cheddar de fraldinha
+        preco: 31.00
+      - nome: X-Tudo de fraldinha
+        preco: 33.00
+      - nome: Buteco Especial de fraldinha
+        preco: 36.00
+
+  - nome: Hambúrgueres de picanha
+    itens:
+      - nome: X-Burguer de picanha
+        preco: 29.00
+      - nome: X-Salada de picanha
+        preco: 30.00
+      - nome: X-Bacon de picanha
+        preco: 33.00
+      - nome: X-Egg de picanha
+        preco: 33.00
+      - nome: X-Salada Bacon de picanha
+        preco: 34.00
+      - nome: Buteco Duplo Cheddar de picanha
+        preco: 39.00
+      - nome: X-Tudo de picanha
+        preco: 40.00
+      - nome: Buteco Especial de picanha
+        preco: 44.00
+
+  - nome: Lanches no pão francês
+    itens:
+      - nome: Pão com Linguiça
+        preco: 21.00
+        descricao: Pão, queijo, alface, tomate, cebola e linguiça
+      - nome: Pão com Lombo ou Pernil
+        preco: 21.00
+        descricao: Pão, queijo, alface, tomate, cebola, lombo ou pernil
+      - nome: Pão com Filé de Frango
+        preco: 21.00
+        descricao: Pão, queijo, alface, tomate, cebola e filé de frango
+      - nome: Pão com Contra Filé
+        preco: 24.00
+        descricao: Pão, queijo, alface, tomate, cebola e contra filé
+      - nome: Pão com Picanha
+        preco: 30.00
+        descricao: Pão, queijo, alface, tomate, cebola e picanha
+
+  - nome: Adicionais
+    itens:
+      - nome: Alface, tomate, milho ou batata palha
+        preco: 1.00
+      - nome: Presunto, queijo, ovo, calabresa, cheddar ou catupiry
+        preco: 4.00
+      - nome: Bacon
+        preco: 5.00
+      - nome: Hambúrguer artesanal, lombo, filé de frango ou linguiça caseira
+        preco: 8.00
+      - nome: Hambúrguer de costela
+        preco: 11.00
+      - nome: Hambúrguer de fraldinha
+        preco: 12.00
+      - nome: Picanha
+        preco: 14.00
+
+  - nome: Porções
+    itens:
+      - nome: Fritas
+        preco: 28.00
+      - nome: Mandioca frita
+        preco: 28.00
+      - nome: Calabresa
+        preco: 34.00
+      - nome: Lombo
+        preco: 36.00
+      - nome: Bolinho de carne seca
+        preco: 38.00
+      - nome: Bolinho de tilápia
+        preco: 38.00
+      - nome: Torresmo
+        preco: 41.00
+      - nome: Isca de frango empanada
+        preco: 42.00
+      - nome: Tulipa de frango à moda buteco
+        preco: 45.00
+      - nome: Filé de tilápia
+        preco: 49.00
+      - nome: Contra filé
+        preco: 58.00
+      - nome: Picanha
+        preco: 78.90
+
+  - nome: Sucos
+    itens:
+      - nome: Abacaxi
+        preco: 10.00
+      - nome: Abacaxi com hortelã
+        preco: 10.00
+      - nome: Acerola
+        preco: 10.00
+      - nome: Acerola com laranja
+        preco: 10.00
+      - nome: Frutas vermelhas
+        preco: 10.00
+      - nome: Laranja natural
+        preco: 10.00
+      - nome: Limão
+        preco: 10.00
+      - nome: Maracujá
+        preco: 10.00
+      - nome: Morango natural
+        preco: 10.00
+
+observacoes: >-
+  Hambúrguer é carne tradicional. Nos lanches com hambúrguer (X-Burguer, X-Salada, X-Bacon,
+  X-Salada Bacon, X-Egg, X-Tudo, Buteco Duplo Cheddar e Buteco Especial) dá pra trocar por
+  costela, fraldinha ou picanha, nas seções de cada carne. Porções: meia porção com
+  acréscimo de 30%.

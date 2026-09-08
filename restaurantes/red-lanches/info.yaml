@@ -1,0 +1,21 @@
+# Dados fixos do lugar. Edite à mão quando mudar horário, taxa ou WhatsApp.
+nome: RED Lanches
+categoria: Hambúrguer
+cozinha: [lanche, hambúrguer, hot dog, porções, prato executivo, cerveja]
+bairro: Centro # CONFIRMAR
+endereco: "" # CONFIRMAR
+whatsapp: "5535984281806"
+instagram: "@red_lanchess"
+emoji: "🍔"
+taxa_entrega: "Disk entrega até 23h, taxa R$ 5"
+taxa_entrega_valor: 5.00
+pagamentos: [Pix, Dinheiro, Cartão] # CONFIRMAR
+
+horarios:
+  seg: ["12:00", "22:00"]
+  ter: ["12:00", "22:00"]
+  qua: ["12:00", "22:00"]
+  qui: ["12:00", "22:00"]
+  sex: ["12:00", "22:00"]
+  sab: ["12:00", "22:00"]
+  dom: null
