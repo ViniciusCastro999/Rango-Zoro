@@ -13,7 +13,8 @@ export interface Info {
   cozinha?: string[];
   bairro?: string;
   endereco?: string;
-  whatsapp: string;
+  whatsapp?: string;
+  site_pedido?: string; // se o lugar recebe pedido por um site de fora, não pelo WhatsApp
   instagram?: string;
   emoji?: string;
   taxa_entrega?: string;

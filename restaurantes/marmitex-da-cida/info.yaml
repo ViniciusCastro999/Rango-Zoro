@@ -3,10 +3,13 @@ categoria: Marmita
 cozinha: [comida caseira, marmitex, prato feito]
 bairro: Bela Vista
 endereco: Rua das Acácias, 30 - Bela Vista
-whatsapp: "5535999990003"
+
+# Exemplo de lugar que recebe pedido por site de fora (fake).
+# Quando tem site_pedido, o site só direciona pra lá: sem montar a lista de itens.
+site_pedido: "https://pedido.anota.ai/loja/marmitex-da-cida"
+
 emoji: "🍛"
 taxa_entrega: "Entrega R$ 4"
-taxa_entrega_valor: 4.00
 pedido_minimo: "1 marmita"
 pagamentos: [Pix, Dinheiro]
 

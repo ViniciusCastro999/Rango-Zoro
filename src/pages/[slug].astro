@@ -14,11 +14,15 @@ export function getStaticPaths() {
 const { r } = Astro.props;
 const semana = horarioSemana(r.horarios);
 const hojeIdx = (agoraEmZoro().diaIdx + 6) % 7; // 0 = segunda
+
+// Lugar que recebe pedido por site de fora: só direciona pra lá, sem montar a lista.
+const externo = !!r.site_pedido;
 const mensagem = 'Olá! Gostaria de fazer um pedido.';
-const zap = linkWhatsapp(r.whatsapp, mensagem);
+const zap = !externo && r.whatsapp ? linkWhatsapp(r.whatsapp, mensagem) : '';
+const dominioSite = externo ? r.site_pedido!.replace(/^https?:\/\//, '').replace(/\/.*$/, '') : '';
 ---
 
-<Base titulo={`${r.nome} no RangoZoro`} descricao={`Cardápio, horário e WhatsApp do ${r.nome}, em Conceição dos Ouros.`}>
+<Base titulo={`${r.nome} no RangoZoro`} descricao={`Cardápio, horário e contato do ${r.nome}, em Conceição dos Ouros.`}>
   <div class="envelope">
     <a class="voltar" href={u()}>← Todos os lugares</a>
 
@@ -36,6 +40,7 @@ const zap = linkWhatsapp(r.whatsapp, mensagem);
       {r.taxa_entrega && (<><dt>Entrega</dt><dd>{r.taxa_entrega}</dd></>)}
       {r.pedido_minimo && (<><dt>Pedido mínimo</dt><dd>{r.pedido_minimo}</dd></>)}
       {r.pagamentos?.length && (<><dt>Pagamento</dt><dd>{r.pagamentos.join(', ')}</dd></>)}
+      {externo && (<><dt>Pedido</dt><dd><a href={r.site_pedido} target="_blank" rel="noopener">{dominioSite}</a></dd></>)}
       {r.instagram && (
         <>
           <dt>Instagram</dt>
@@ -61,31 +66,51 @@ const zap = linkWhatsapp(r.whatsapp, mensagem);
     </details>
 
     <h2 class="ficha__secao">Cardápio</h2>
-    <Cardapio cardapio={r.cardapio} />
+    <Cardapio cardapio={r.cardapio} interativo={!externo} />
 
     <p class="cardapio__data">
-      Preços podem ter mudado. Na dúvida, confirme no WhatsApp ao fazer o pedido.
+      {externo
+        ? 'O pedido é feito no site do restaurante. Este cardápio é só pra você dar uma olhada.'
+        : 'Preços podem ter mudado. Na dúvida, confirme no WhatsApp ao fazer o pedido.'}
     </p>
 
     <div class="zap-espaco"></div>
   </div>
 
-  <div
-    class="zap-barra"
-    data-pedido
-    data-slug={r.slug}
-    data-nome={r.nome}
-    data-whatsapp={r.whatsapp}
-    data-entrega={r.taxa_entrega_valor ?? ''}
-    data-minimo={r.pedido_minimo_valor ?? ''}
-    data-mensagem-vazia={mensagem}
-  >
-    <div class="pedido-resumo" data-resumo hidden>
-      <span data-resumo-itens>0 itens</span>
-      <span class="mono" data-resumo-total>R$ 0,00</span>
-    </div>
-    <a class="zap" href={zap} target="_blank" rel="noopener" data-zap>Pedir no WhatsApp</a>
-  </div>
+  {
+    externo ? (
+      <div class="zap-barra">
+        <a
+          class="zap"
+          href={r.site_pedido}
+          target="_blank"
+          rel="noopener"
+          data-ir-site
+          data-slug={r.slug}
+          data-nome={r.nome}
+        >
+          Fazer pedido no site
+        </a>
+      </div>
+    ) : (
+      <div
+        class="zap-barra"
+        data-pedido
+        data-slug={r.slug}
+        data-nome={r.nome}
+        data-whatsapp={r.whatsapp}
+        data-entrega={r.taxa_entrega_valor ?? ''}
+        data-minimo={r.pedido_minimo_valor ?? ''}
+        data-mensagem-vazia={mensagem}
+      >
+        <div class="pedido-resumo" data-resumo hidden>
+          <span data-resumo-itens>0 itens</span>
+          <span class="mono" data-resumo-total>R$ 0,00</span>
+        </div>
+        <a class="zap" href={zap} target="_blank" rel="noopener" data-zap>Pedir no WhatsApp</a>
+      </div>
+    )
+  }
 
   <script>
     import '../scripts/pedido.js';

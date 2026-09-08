@@ -40,6 +40,10 @@ O site é gerado desses YAMLs no `npm run build`. Não tem banco de dados nem pa
 1. Crie `restaurantes/<slug>/` (slug em minúsculo com hífens, ex.: `acai-da-esquina`).
 2. Copie um `info.yaml` existente e ajuste. Campos que importam:
    - `whatsapp`: só dígitos, com `55` na frente, ex.: `"5535999990001"`.
+   - `site_pedido`: use no lugar do `whatsapp` quando o restaurante recebe pedido por um
+     site de fora (Anota AI, Goomer, site próprio). Nesse caso o RangoZoro só mostra um
+     botão que leva pra lá, o cardápio fica só pra ver (sem montar a lista) e não tem
+     total. Exemplo: `restaurantes/marmitex-da-cida/`.
    - `taxa_entrega` (texto) e `taxa_entrega_valor` (número, `0` para grátis): o número é
      somado no total do pedido montado no cardápio. Sem ele, a entrega aparece como
      "a combinar".

@@ -572,7 +572,22 @@ img {
 }
 
 .item__linha--info {
-  color: var(--tinta-70);
+  grid-template-columns: auto 1fr auto;
+  color: var(--tinta);
+}
+
+/* cardápio só pra ver (lugar que pede por site de fora) */
+.cardapio--so-ver .item {
+  padding: 0.1rem 0;
+}
+.cardapio--so-ver .item__linha {
+  padding: 0.55rem 0;
+}
+.cardapio--so-ver .item__nome {
+  font-weight: 600;
+}
+.cardapio--so-ver .item__desc {
+  margin-left: 0;
 }
 
 .item__toggle {
@@ -810,10 +825,38 @@ img {
 /* ---------- no computador: o recibo numa mesa ---------- */
 @media (min-width: 46rem) {
   body {
-    background: #241812;
+    background-color: #211208;
+  }
+
+  /* balcão: textura de recibo (tracejado, [x], R$, pontinhos) meio apagada,
+     de leve na diagonal, só no espaço vazio ao redor do cartão */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -30%;
+    background-image: url("./textura-recibo.svg");
+    background-size: 320px 320px;
+    transform: rotate(-9deg);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+      42rem 48rem at 50% 42%,
+      rgba(60, 38, 22, 0.55),
+      rgba(33, 18, 8, 0) 72%
+    );
+    pointer-events: none;
+    z-index: 0;
   }
 
   .folha {
+    position: relative;
+    z-index: 1;
     max-width: 29rem;
     margin: 3rem auto;
     background: var(--creme);
@@ -821,7 +864,7 @@ img {
     overflow: hidden;
     box-shadow:
       0 0 0 1px rgba(255, 255, 255, 0.04),
-      0 26px 60px -18px rgba(0, 0, 0, 0.55);
+      0 26px 60px -18px rgba(0, 0, 0, 0.6);
   }
 
   /* dentro do cartão o cabeçalho e os filtros não precisam grudar na tela */

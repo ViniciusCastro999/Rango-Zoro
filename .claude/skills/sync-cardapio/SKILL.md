@@ -29,6 +29,9 @@ As fontes podem ser: fotos de cardápio impresso, prints de conversa de WhatsApp
      - `taxa_entrega` (texto exibido, ex.: "Entrega R$ 5 no Centro") **e** `taxa_entrega_valor` (número, ex.: `5.00`; use `0` para grátis). O número entra na soma do pedido.
      - `pedido_minimo` (texto) e `pedido_minimo_valor` (número). O número dispara o aviso "faltam R$ X".
      - `pagamentos`, `horarios`.
+     - `site_pedido`: se o lugar pede por um site de fora (Anota AI, Goomer, site próprio),
+       coloque a URL aqui em vez de `whatsapp`. Aí o cardápio é só pra ver e o botão leva
+       pro site. Ainda vale extrair os itens e preços pra navegação.
    - Observações gerais do cardápio (borda, meio a meio, mínimo) vão em `observacoes`.
 
 4. **Mostre o diff em português**, sem gravar nada ainda. Formato:

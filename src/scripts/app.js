@@ -77,3 +77,19 @@ function filtros() {
 hidratarStatus();
 filtros();
 setInterval(hidratarStatus, 60_000);
+
+// lugar que pede por site de fora: registra o clique do "Fazer pedido no site"
+const irSite = document.querySelector('[data-ir-site]');
+if (irSite) {
+  irSite.addEventListener('click', () => {
+    const g = window.goatcounter;
+    if (g && typeof g.count === 'function') {
+      g.count({
+        path: 'pedido/' + irSite.dataset.slug,
+        title: 'Pedido: ' + (irSite.dataset.nome || irSite.dataset.slug),
+        event: true,
+      });
+      g.count({ path: 'pedido-site-externo', title: 'Pedido em site externo', event: true });
+    }
+  });
+}

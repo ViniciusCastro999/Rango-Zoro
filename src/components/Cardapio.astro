@@ -4,9 +4,10 @@ import type { Cardapio } from '../lib/restaurantes';
 
 interface Props {
   cardapio: Cardapio | null;
+  interativo?: boolean;
 }
 
-const { cardapio } = Astro.props;
+const { cardapio, interativo = true } = Astro.props;
 const temCardapio = !!(cardapio && cardapio.categorias?.length);
 const totalItens = cardapio?.categorias?.reduce((s, c) => s + c.itens.length, 0) ?? 0;
 // cardápio grande abre fechado; cardápio curto abre aberto
@@ -21,9 +22,11 @@ const dataFmt = cardapio?.atualizado_em
 
 {
   temCardapio ? (
-    <div class="cardapio">
+    <div class:list={['cardapio', { 'cardapio--so-ver': !interativo }]}>
       <div class="cardapio__topo">
-        <p class="cardapio__dica">Marque pra montar o pedido.</p>
+        <p class="cardapio__dica">
+          {interativo ? 'Marque pra montar o pedido.' : 'Só pra ver. O pedido é no site deles.'}
+        </p>
         {colapsar && (
           <button type="button" class="cardapio__abrir" data-abrir-tudo aria-expanded="false">
             abrir todas
@@ -41,11 +44,11 @@ const dataFmt = cardapio?.atualizado_em
             {cat.itens.map((it, ii) => (
               <li
                 class="item"
-                data-item={it.preco != null ? `${cat.nome}::${ii}::${it.nome}` : undefined}
+                data-item={interativo && it.preco != null ? `${cat.nome}::${ii}::${it.nome}` : undefined}
                 data-nome={it.nome}
                 data-preco={it.preco ?? undefined}
               >
-                {it.preco != null ? (
+                {interativo && it.preco != null ? (
                   <div class="item__linha">
                     <button type="button" class="item__toggle" data-toggle aria-pressed="false">
                       <span class="item__caixa" aria-hidden="true" />
@@ -67,10 +70,11 @@ const dataFmt = cardapio?.atualizado_em
                   </div>
                 ) : (
                   <div class="item__linha item__linha--info">
-                    <span class="item__caixa" aria-hidden="true" />
                     <span class="item__nome">{it.nome}</span>
                     <span class="item__dots" aria-hidden="true" />
-                    <span class="item__preco item__preco--vazio">no zap</span>
+                    <span class:list={['item__preco', { 'item__preco--vazio': it.preco == null }]}>
+                      {it.preco != null ? formatarReal(it.preco) : interativo ? 'no zap' : ''}
+                    </span>
                   </div>
                 )}
                 {it.descricao && <p class="item__desc">{it.descricao}</p>}
@@ -80,28 +84,32 @@ const dataFmt = cardapio?.atualizado_em
         </details>
       ))}
 
-      <div class="recibo" data-recibo hidden>
-        <div class="recibo__linha">
-          <span>Subtotal</span>
-          <span class="mono" data-r-sub>R$ 0,00</span>
+      {interativo && (
+        <div class="recibo" data-recibo hidden>
+          <div class="recibo__linha">
+            <span>Subtotal</span>
+            <span class="mono" data-r-sub>R$ 0,00</span>
+          </div>
+          <div class="recibo__linha">
+            <span>Entrega</span>
+            <span class="mono" data-r-ent>a combinar</span>
+          </div>
+          <div class="recibo__linha recibo__total">
+            <span>Total</span>
+            <span class="mono" data-r-tot>R$ 0,00</span>
+          </div>
+          <p class="recibo__aviso" data-r-aviso hidden />
         </div>
-        <div class="recibo__linha">
-          <span>Entrega</span>
-          <span class="mono" data-r-ent>a combinar</span>
-        </div>
-        <div class="recibo__linha recibo__total">
-          <span>Total</span>
-          <span class="mono" data-r-tot>R$ 0,00</span>
-        </div>
-        <p class="recibo__aviso" data-r-aviso hidden />
-      </div>
+      )}
 
       {cardapio!.observacoes && <p class="cardapio__obs">{cardapio!.observacoes}</p>}
       {dataFmt && <p class="cardapio__data">Cardápio conferido em {dataFmt}</p>}
     </div>
-  ) : (
+  ) : interativo ? (
     <p class="cardapio__vazio">
       Cardápio ainda não catalogado. Chama no WhatsApp que eles te passam tudo.
     </p>
+  ) : (
+    <p class="cardapio__vazio">Veja o cardápio completo e faça o pedido no site do restaurante.</p>
   )
 }
