@@ -153,7 +153,7 @@ function iniciar(wrap) {
           const li = document.createElement('li');
           li.className = 'item item--mm item--ativo';
           const preco = v.qtd > 1 ? brl(v.precoCents * v.qtd) : brl(v.precoCents);
-          const rotulo = `meio a meio: ${v.a} / ${v.b}`;
+          const rotulo = `meio a meio (${v.a} e ${v.b})`;
           li.innerHTML = `
             <div class="item__linha">
               <button type="button" class="item__toggle" data-mm-toggle aria-pressed="true" aria-label="Tirar ${esc(rotulo)}">
@@ -267,15 +267,21 @@ function iniciar(wrap) {
     return out;
   }
 
-  // linha do pedido no texto do WhatsApp:
+  // pedaço de cada item no texto do WhatsApp:
   //   "1 X-Tudo" · "2 Coca-Cola 2L"
   //   "1 Pizza Calabresa" · "2 Pizzas Calabresa"
-  //   "1 Pizza meio a meio: Calabresa / Portuguesa"
+  //   "1 Pizza meio a meio (Calabresa e Portuguesa)"
   function linhaPedido(i) {
     const pizza = i.qtd === 1 ? 'Pizza' : 'Pizzas';
-    if (i.mm) return `${i.qtd} ${pizza} meio a meio: ${i.a} / ${i.b}`;
+    if (i.mm) return `${i.qtd} ${pizza} meio a meio (${i.a} e ${i.b})`;
     if (i.pizza) return `${i.qtd} ${pizza} ${i.nome}`;
     return `${i.qtd} ${i.nome}`;
+  }
+
+  // junta com vírgula e "e" antes do último: "a, b e c"
+  function juntar(partes) {
+    if (partes.length <= 1) return partes.join('');
+    return partes.slice(0, -1).join(', ') + ' e ' + partes[partes.length - 1];
   }
 
   function atualizar() {
@@ -309,9 +315,8 @@ function iniciar(wrap) {
       }
     }
 
-    // Mensagem do WhatsApp: só item e quantidade, sem valores (a loja calcula).
-    // Uma quebra de linha por item (o WhatsApp respeita %0A no texto pré-preenchido).
-    const texto = ['Gostaria de pedir:', ...itens.map(linhaPedido)].join('\n');
+    // Mensagem do WhatsApp: uma frase só, sem valores (a loja calcula).
+    const texto = 'Gostaria de pedir: ' + juntar(itens.map(linhaPedido)) + '.';
     zap.href = linkWhatsapp(whatsapp, texto);
     zap.textContent = `Pedir no WhatsApp · ${brl(totalCents)}`;
   }
