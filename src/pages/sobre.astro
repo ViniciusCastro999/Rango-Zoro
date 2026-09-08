@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import { linkWhatsapp } from '../lib/links';
+
+// TROQUE pelo WhatsApp oficial do RangoZoro:
+const CONTATO = '5535999999999';
+const zap = linkWhatsapp(CONTATO, 'Oi! Quero colocar meu restaurante no RangoZoro.');
+---
+
+<Base titulo="Como funciona o RangoZoro">
+  <div class="envelope prosa">
+    <h1>Como funciona</h1>
+    <p>
+      O RangoZoro é um guia. Ele junta numa tela só todo mundo que faz e entrega comida em
+      Conceição dos Ouros, inclusive os lugares que quase ninguém conhece porque só rodam
+      no bairro.
+    </p>
+    <p>
+      Você acha o lugar, vê o cardápio e o horário, e faz o pedido direto no WhatsApp do
+      restaurante. A gente não entrega, não processa pagamento e não cobra comissão de
+      ninguém.
+    </p>
+
+    <h2>Pra quem tem restaurante</h2>
+    <p>
+      Colocar seu lugar aqui é de graça. Você manda o cardápio (foto, print, PDF, o que
+      tiver), o horário e o número do WhatsApp, e a gente cadastra. Quando o preço mudar, é
+      só mandar o cardápio novo.
+    </p>
+    <p>
+      <a href={zap}>Chamar no WhatsApp</a> · <a href="https://instagram.com/rango.zoro">@rango.zoro</a>
+    </p>
+
+    <h2>O cardápio está errado?</h2>
+    <p>
+      Pode acontecer de um preço estar desatualizado. Ao fechar o pedido no WhatsApp, o
+      restaurante confirma tudo. Se você viu algo errado, <a href={zap}>me avisa</a> que eu
+      corrijo.
+    </p>
+  </div>
+</Base>

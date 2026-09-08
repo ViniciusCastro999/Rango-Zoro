@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Darker+Grotesque:wght@600;700;800;900&family=Hanken+Grotesque:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --tinta:#2b1b12; --brasa:#d62d20; --brasa-esc:#a81f16; --pequi:#f2a81d;
+    --creme:#f9efd6; --papel:#fff; --linha:#e7d4a8; --folha:#1e7a46; --tinta70:#6b5546;
+    --titulo:"Darker Grotesque",sans-serif; --texto:"Hanken Grotesque",sans-serif;
+    --mono:"Courier Prime",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#ddd}
+  .art{position:relative;overflow:hidden;background:var(--creme);color:var(--tinta);font-family:var(--texto)}
+  .post{width:1080px;height:1350px;padding:92px 84px 76px;display:flex;flex-direction:column}
+  .perfil{width:1080px;height:1080px;display:flex;align-items:center;justify-content:center;background:var(--tinta)}
+
+  .bar{position:absolute;top:0;left:0;right:0;height:16px;background:var(--brasa)}
+  .eyebrow{font-family:var(--mono);font-size:23px;letter-spacing:5px;color:var(--tinta70);text-transform:uppercase}
+  .body{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .rule{border:0;border-top:3px dashed var(--linha);margin:0}
+
+  .wm{font-family:var(--titulo);font-weight:900;letter-spacing:-0.045em;line-height:1}
+  .wm .z{color:var(--brasa)} .wm .d{color:var(--pequi)}
+
+  .perf{font-family:var(--mono);font-size:22px;letter-spacing:2px;color:var(--linha);
+    white-space:nowrap;overflow:hidden;margin:26px 0 22px}
+  .foot{display:flex;align-items:flex-end;justify-content:space-between}
+  .foot .wm{font-size:50px}
+  .handle{font-family:var(--mono);font-weight:700;font-size:25px;color:var(--tinta70)}
+
+  h1{font-family:var(--titulo);font-weight:900;letter-spacing:-0.03em;line-height:0.96}
+  .badge{align-self:flex-start;background:var(--tinta);color:var(--creme);font-family:var(--mono);
+    font-weight:700;font-size:25px;letter-spacing:2px;padding:12px 22px;border-radius:6px}
+
+  /* p1 */
+  .p1 h1{font-size:112px}
+  .p1 .sub{font-size:42px;font-weight:500;color:var(--tinta70);margin-top:34px;max-width:20ch}
+  .p1 .badge{margin-top:44px}
+  .p1 .bul{font-family:var(--mono);font-size:29px;line-height:2;color:var(--tinta);margin-top:52px}
+  .p1 .bul b{color:var(--brasa)}
+
+  /* sheets (p2/p5) */
+  .sheet{background:var(--papel);border:2px solid var(--linha);border-radius:10px;padding:40px 44px}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:24px;padding:28px 0;
+    border-bottom:2px dashed var(--linha);align-items:start}
+  .step:last-child{border-bottom:0}
+  .step .n{font-family:var(--mono);font-weight:700;font-size:38px;color:var(--brasa)}
+  .step .t{font-size:38px;font-weight:600;line-height:1.22}
+  .p2 h1{font-size:104px;margin-bottom:44px}
+  .tags{font-family:var(--mono);font-weight:700;font-size:29px;letter-spacing:2px;margin-top:34px}
+
+  /* p3 */
+  .p3 h1{font-size:78px}
+  .p3 .kinds{font-family:var(--mono);font-size:31px;line-height:1.95;color:var(--tinta70);margin-top:30px}
+  .p3 .big{font-family:var(--titulo);font-weight:900;font-size:122px;letter-spacing:-0.03em;line-height:0.94;margin-top:34px}
+  .p3 .big em{color:var(--brasa);font-style:normal}
+  .p3 .how{font-size:35px;color:var(--tinta70);margin-top:34px;max-width:26ch;line-height:1.42}
+
+  /* p4 */
+  .p4 .lead{font-size:42px;font-weight:600}
+  .p4 h1{font-size:100px;margin-top:30px}
+  .p4 .prompts{font-size:35px;color:var(--tinta70);margin-top:38px;line-height:1.55;max-width:27ch}
+  .p4 .cta{align-self:flex-start;font-family:var(--mono);font-weight:700;font-size:32px;
+    color:var(--creme);background:var(--brasa);padding:14px 24px;border-radius:6px;margin-top:44px}
+
+  /* p5 */
+  .p5 .stamp{position:absolute;top:150px;right:70px;transform:rotate(9deg);border:5px solid var(--brasa);
+    color:var(--brasa);font-family:var(--titulo);font-weight:900;font-size:42px;letter-spacing:4px;
+    padding:6px 22px;border-radius:8px}
+  .p5 h1{font-size:92px}
+  .p5 .say{font-size:37px;color:var(--tinta70);margin:26px 0 30px;max-width:24ch;line-height:1.4}
+  .check{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:baseline;
+    padding:22px 0;border-bottom:2px dashed var(--linha);font-size:33px}
+  .check .box{font-family:var(--mono);font-weight:700;color:var(--brasa)}
+  .check .pr{font-family:var(--mono);font-weight:700}
+  .total{display:flex;justify-content:space-between;font-family:var(--mono);font-weight:700;
+    font-size:38px;border-top:4px dashed var(--tinta);margin-top:14px;padding-top:22px}
+
+  /* perfil */
+  .perfil .mark{font-family:var(--titulo);font-weight:900;font-size:520px;letter-spacing:-0.05em;line-height:1;transform:translate(-3%,-3%)}
+  .perfil .mark .r{color:var(--creme)} .perfil .mark .z{color:var(--brasa)} .perfil .mark .d{color:var(--pequi)}
+</style>
+</head>
+<body>
+
+<!-- Foto de perfil: ver perfil-final.html -->
+
+<!-- ============ POST 1 · LANCAMENTO ============ -->
+<div class="art post p1" data-name="post-1-lancamento">
+  <div class="bar"></div>
+  <div class="eyebrow">Conceição dos Ouros · MG</div>
+  <div class="body">
+    <h1>Cansei de caçar lugar aberto pra pedir comida.</h1>
+    <p class="sub">Então juntei todo mundo num lugar só.</p>
+    <span class="badge">SITE NO AR EM BREVE</span>
+    <p class="bul">
+      <b>·</b> vê quem tá aberto agora<br>
+      <b>·</b> cardápio, preço e horário<br>
+      <b>·</b> pede direto no WhatsApp
+    </p>
+  </div>
+  <div class="perf">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</div>
+  <div class="foot"><span class="wm">rango<span class="z">zoro</span><span class="d">.</span></span><span class="handle">@rango.zoro</span></div>
+</div>
+
+<!-- ============ POST 2 · COMO FUNCIONA ============ -->
+<div class="art post p2" data-name="post-2-como-funciona">
+  <div class="bar"></div>
+  <div class="eyebrow">como funciona</div>
+  <div class="body">
+    <h1>Não é app.<br>É um guia.</h1>
+    <div class="sheet">
+      <div class="step"><span class="n">1</span><span class="t">Abre o site e vê quem tá aberto <b>agora</b></span></div>
+      <div class="step"><span class="n">2</span><span class="t">Escolhe o lugar e vai marcando os itens no cardápio</span></div>
+      <div class="step"><span class="n">3</span><span class="t">Aperta um botão e cai no WhatsApp do restaurante</span></div>
+    </div>
+    <p class="tags">sem app · sem cadastro · sem comissão</p>
+  </div>
+  <div class="perf">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</div>
+  <div class="foot"><span class="wm">rango<span class="z">zoro</span><span class="d">.</span></span><span class="handle">@rango.zoro</span></div>
+</div>
+
+<!-- ============ POST 3 · RESTAURANTES ============ -->
+<div class="art post p3" data-name="post-3-restaurantes">
+  <div class="bar"></div>
+  <div class="eyebrow">recado pra quem cozinha</div>
+  <div class="body">
+    <h1>Tem um lugar que faz comida no Zoro?</h1>
+    <p class="kinds">restaurante · trailer · marmita · açaí<br>pizza · lanche · salgado · doce</p>
+    <div class="big">coloca no<br>RangoZoro.<br><em>de graça.</em></div>
+    <p class="how">Manda no direct: cardápio (foto serve), horário e teu WhatsApp. O pedido cai direto pra você, sem comissão.</p>
+  </div>
+  <div class="perf">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</div>
+  <div class="foot"><span class="wm">rango<span class="z">zoro</span><span class="d">.</span></span><span class="handle">@rango.zoro</span></div>
+</div>
+
+<!-- ============ POST 4 · FEEDBACK ============ -->
+<div class="art post p4" data-name="post-4-feedback">
+  <div class="bar"></div>
+  <div class="eyebrow">me ajuda a fazer isso direito</div>
+  <div class="body">
+    <p class="lead">Antes de lançar, quero te ouvir:</p>
+    <h1>O que mais te irrita pra pedir comida no Zoro?</h1>
+    <p class="prompts">Não achar cardápio? Preço escondido? Não saber se abriu? Lugar bom que quase ninguém conhece?</p>
+    <span class="cta">responde nos comentários 👇</span>
+  </div>
+  <div class="perf">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</div>
+  <div class="foot"><span class="wm">rango<span class="z">zoro</span><span class="d">.</span></span><span class="handle">@rango.zoro</span></div>
+</div>
+
+<!-- ============ POST 5 · PRÉVIA ============ -->
+<div class="art post p5" data-name="post-5-previa">
+  <div class="bar"></div>
+  <span class="stamp">PRÉVIA</span>
+  <div class="eyebrow">primeira versão</div>
+  <div class="body">
+    <h1>Olha como<br>tá ficando.</h1>
+    <p class="say">Monta o pedido marcando os itens, tipo uma listinha:</p>
+    <div class="sheet">
+      <div class="check"><span class="box">[×]</span><span>X-Tudo</span><span class="pr">R$ 32,00</span></div>
+      <div class="check"><span class="box">[×]</span><span>Batata com cheddar</span><span class="pr">R$ 28,00</span></div>
+      <div class="check"><span class="box">[ ]</span><span>Refri lata</span><span class="pr">R$ 6,00</span></div>
+      <div class="total"><span>Total + entrega</span><span>R$ 65,00</span></div>
+    </div>
+  </div>
+  <div class="perf">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</div>
+  <div class="foot"><span class="wm">rango<span class="z">zoro</span><span class="d">.</span></span><span class="handle">o que falta? fala aí 👇</span></div>
+</div>
+
+</body>
+</html>

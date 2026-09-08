@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+import StatusAberto from '../components/StatusAberto.astro';
+import Cardapio from '../components/Cardapio.astro';
+import { getRestaurantes } from '../lib/restaurantes';
+import { horarioSemana, agoraEmZoro } from '../lib/horario.js';
+import { linkWhatsapp } from '../lib/links';
+import { u } from '../lib/url';
+
+export function getStaticPaths() {
+  return getRestaurantes().map((r) => ({ params: { slug: r.slug }, props: { r } }));
+}
+
+const { r } = Astro.props;
+const semana = horarioSemana(r.horarios);
+const hojeIdx = (agoraEmZoro().diaIdx + 6) % 7; // 0 = segunda
+const mensagem = 'Olá! Gostaria de fazer um pedido.';
+const zap = linkWhatsapp(r.whatsapp, mensagem);
+---
+
+<Base titulo={`${r.nome} no RangoZoro`} descricao={`Cardápio, horário e WhatsApp do ${r.nome}, em Conceição dos Ouros.`}>
+  <div class="envelope">
+    <a class="voltar" href={u()}>← Todos os lugares</a>
+
+    <h1 class="ficha__nome">{r.nome}</h1>
+    <p class="ficha__meta">{[r.categoria, r.bairro].filter(Boolean).join(' · ')}</p>
+    <StatusAberto
+      horarios={r.horarios}
+      pausado={r.pausado}
+      pausaMotivo={r.pausa_motivo}
+      principal={true}
+    />
+
+    <dl class="ficha__dados">
+      {r.endereco && (<><dt>Endereço</dt><dd>{r.endereco}</dd></>)}
+      {r.taxa_entrega && (<><dt>Entrega</dt><dd>{r.taxa_entrega}</dd></>)}
+      {r.pedido_minimo && (<><dt>Pedido mínimo</dt><dd>{r.pedido_minimo}</dd></>)}
+      {r.pagamentos?.length && (<><dt>Pagamento</dt><dd>{r.pagamentos.join(', ')}</dd></>)}
+      {r.instagram && (
+        <>
+          <dt>Instagram</dt>
+          <dd><a href={`https://instagram.com/${r.instagram.replace('@', '')}`}>{r.instagram}</a></dd>
+        </>
+      )}
+    </dl>
+
+    <details class="horario">
+      <summary>Horário de funcionamento</summary>
+      <table class="semana">
+        <tbody>
+          {
+            semana.map((linha, i) => (
+              <tr {...(i === hojeIdx ? { 'data-hoje': true } : {})}>
+                <td>{linha.dia}</td>
+                <td>{linha.texto}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </details>
+
+    <h2 class="ficha__secao">Cardápio</h2>
+    <Cardapio cardapio={r.cardapio} />
+
+    <p class="cardapio__data">
+      Preços podem ter mudado. Na dúvida, confirme no WhatsApp ao fazer o pedido.
+    </p>
+
+    <div class="zap-espaco"></div>
+  </div>
+
+  <div
+    class="zap-barra"
+    data-pedido
+    data-slug={r.slug}
+    data-nome={r.nome}
+    data-whatsapp={r.whatsapp}
+    data-entrega={r.taxa_entrega_valor ?? ''}
+    data-minimo={r.pedido_minimo_valor ?? ''}
+    data-mensagem-vazia={mensagem}
+  >
+    <div class="pedido-resumo" data-resumo hidden>
+      <span data-resumo-itens>0 itens</span>
+      <span class="mono" data-resumo-total>R$ 0,00</span>
+    </div>
+    <a class="zap" href={zap} target="_blank" rel="noopener" data-zap>Pedir no WhatsApp</a>
+  </div>
+
+  <script>
+    import '../scripts/pedido.js';
+  </script>
+</Base>

@@ -1,0 +1,35 @@
+---
+import StatusAberto from './StatusAberto.astro';
+import { u } from '../lib/url';
+import type { Restaurante } from '../lib/restaurantes';
+
+interface Props {
+  r: Restaurante;
+}
+
+const { r } = Astro.props;
+const busca = [r.nome, r.categoria, ...(r.cozinha ?? []), r.bairro].filter(Boolean).join(' ');
+---
+
+<li>
+  <a
+    class="card"
+    href={u(r.slug)}
+    data-card
+    data-categoria={r.categoria}
+    data-busca={busca}
+    data-aberto="false"
+  >
+    <span class="card__emoji" aria-hidden="true">{r.emoji ?? '🍽️'}</span>
+    <span class="card__corpo">
+      <span class="card__nome"
+        >{r.nome}{r.destaque && <span class="card__selo">em alta</span>}</span
+      >
+      <span class="card__meta">{[r.categoria, r.bairro].filter(Boolean).join(' · ')}</span>
+      <span class="card__rodape">
+        <StatusAberto horarios={r.horarios} pausado={r.pausado} pausaMotivo={r.pausa_motivo} />
+        {r.taxa_entrega && <span class="card__taxa">{r.taxa_entrega}</span>}
+      </span>
+    </span>
+  </a>
+</li>

@@ -1,0 +1,23 @@
+# ATENCAO: dados de teste, inventados. Trocar por reais antes de publicar:
+#    whatsapp, endereco, horarios, taxa de entrega e pedido minimo.
+nome: Cantinho da Serra
+categoria: Pizzaria
+cozinha: [pizza, esfiha, pizza doce]
+bairro: Serra Verde
+endereco: Rua da Serra, 320 - Serra Verde
+whatsapp: "5535999990004" # TESTE
+instagram: "@cantinhodaserra"
+emoji: "🍕"
+taxa_entrega: "Entrega R$ 6 (consultar bairro)"
+taxa_entrega_valor: 6.00 # TESTE
+pedido_minimo: "R$ 30"
+pedido_minimo_valor: 30 # TESTE
+
+horarios:
+  seg: null
+  ter: ["18:00", "23:00"]
+  qua: ["18:00", "23:00"]
+  qui: ["18:00", "23:00"]
+  sex: ["18:00", "23:59"]
+  sab: ["18:00", "23:59"]
+  dom: ["18:00", "23:00"]

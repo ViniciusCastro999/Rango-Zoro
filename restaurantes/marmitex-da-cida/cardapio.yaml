@@ -1,0 +1,32 @@
+atualizado_em: "2026-09-06"
+
+categorias:
+  - nome: Marmitas
+    itens:
+      - nome: Marmita P
+        preco: 16.00
+        descricao: Arroz, feijão, uma carne e salada
+      - nome: Marmita M
+        preco: 20.00
+        descricao: Arroz, feijão, duas carnes, salada e guarnição
+      - nome: Marmita G
+        preco: 25.00
+        descricao: Arroz, feijão, duas carnes, salada, guarnição e ovo
+
+  - nome: Marmita fitness
+    itens:
+      - nome: Frango grelhado, arroz integral e legumes
+        preco: 22.00
+      - nome: Patinho moído, batata doce e brócolis
+        preco: 24.00
+
+  - nome: Bebidas
+    itens:
+      - nome: Suco natural 300ml
+        preco: 6.00
+      - nome: Refrigerante lata
+        preco: 6.00
+
+observacoes: >-
+  Cardápio do dia muda; chama no WhatsApp de manhã pra ver as opções de carne.
+  Pedidos até 13h30. Entrega R$ 4 em toda a cidade.

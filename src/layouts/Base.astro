@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+import { u } from '../lib/url';
+
+interface Props {
+  titulo: string;
+  descricao?: string;
+}
+
+const { titulo, descricao = 'O guia de todo lugar que faz comida em Conceição dos Ouros. Veja quem está aberto agora e peça direto no WhatsApp.' } = Astro.props;
+const canonica = new URL(Astro.url.pathname, Astro.site);
+const og = new URL(u('marca/og.svg'), Astro.site);
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={canonica} />
+    <link rel="icon" href={u('favicon.svg')} type="image/svg+xml" />
+    <meta name="theme-color" content="#d62d20" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:image" content={og} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Darker+Grotesque:wght@600;700;800;900&family=Hanken+Grotesque:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="topo">
+      <div class="topo__envelope">
+        <a class="marca" href={u()} aria-label="RangoZoro"
+          >rango<span class="marca__z">zoro</span><span class="marca__dot">.</span></a
+        >
+        <a class="topo__link" href={u('sobre')}>Como funciona</a>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <script>
+      import '../scripts/app.js';
+    </script>
+  </body>
+</html>

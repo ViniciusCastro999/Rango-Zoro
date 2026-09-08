@@ -1,0 +1,20 @@
+nome: Marmitex da Cida
+categoria: Marmita
+cozinha: [comida caseira, marmitex, prato feito]
+bairro: Bela Vista
+endereco: Rua das Acácias, 30 - Bela Vista
+whatsapp: "5535999990003"
+emoji: "🍛"
+taxa_entrega: "Entrega R$ 4"
+taxa_entrega_valor: 4.00
+pedido_minimo: "1 marmita"
+pagamentos: [Pix, Dinheiro]
+
+horarios:
+  seg: ["10:30", "14:00"]
+  ter: ["10:30", "14:00"]
+  qua: ["10:30", "14:00"]
+  qui: ["10:30", "14:00"]
+  sex: ["10:30", "14:00"]
+  sab: ["10:30", "14:00"]
+  dom: null

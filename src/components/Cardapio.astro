@@ -1,0 +1,107 @@
+---
+import { formatarReal } from '../lib/links';
+import type { Cardapio } from '../lib/restaurantes';
+
+interface Props {
+  cardapio: Cardapio | null;
+}
+
+const { cardapio } = Astro.props;
+const temCardapio = !!(cardapio && cardapio.categorias?.length);
+const totalItens = cardapio?.categorias?.reduce((s, c) => s + c.itens.length, 0) ?? 0;
+// cardápio grande abre fechado; cardápio curto abre aberto
+const colapsar = (cardapio?.categorias?.length ?? 0) > 4 || totalItens > 30;
+const dataFmt = cardapio?.atualizado_em
+  ? new Date(cardapio.atualizado_em + 'T12:00:00').toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: 'long',
+    })
+  : null;
+---
+
+{
+  temCardapio ? (
+    <div class="cardapio">
+      <div class="cardapio__topo">
+        <p class="cardapio__dica">Marque pra montar o pedido.</p>
+        {colapsar && (
+          <button type="button" class="cardapio__abrir" data-abrir-tudo aria-expanded="false">
+            abrir todas
+          </button>
+        )}
+      </div>
+
+      {cardapio!.categorias.map((cat) => (
+        <details class="cardapio__cat" open={!colapsar}>
+          <summary class="cardapio__cabeca">
+            <h3 class="cardapio__titulo">{cat.nome}</h3>
+            <span class="cardapio__conta">{cat.itens.length}</span>
+          </summary>
+          <ul class="cardapio__itens">
+            {cat.itens.map((it, ii) => (
+              <li
+                class="item"
+                data-item={it.preco != null ? `${cat.nome}::${ii}::${it.nome}` : undefined}
+                data-nome={it.nome}
+                data-preco={it.preco ?? undefined}
+              >
+                {it.preco != null ? (
+                  <div class="item__linha">
+                    <button type="button" class="item__toggle" data-toggle aria-pressed="false">
+                      <span class="item__caixa" aria-hidden="true" />
+                      <span class="item__nome">{it.nome}</span>
+                    </button>
+                    <span class="item__dots" aria-hidden="true" />
+                    <span class="item__qtd" data-qtdbox hidden>
+                      <button type="button" data-menos aria-label={`Menos um ${it.nome}`}>
+                        -
+                      </button>
+                      <span data-qtd aria-live="polite">1</span>
+                      <button type="button" data-mais aria-label={`Mais um ${it.nome}`}>
+                        +
+                      </button>
+                    </span>
+                    <span class="item__preco" data-preco-cell>
+                      {formatarReal(it.preco)}
+                    </span>
+                  </div>
+                ) : (
+                  <div class="item__linha item__linha--info">
+                    <span class="item__caixa" aria-hidden="true" />
+                    <span class="item__nome">{it.nome}</span>
+                    <span class="item__dots" aria-hidden="true" />
+                    <span class="item__preco item__preco--vazio">no zap</span>
+                  </div>
+                )}
+                {it.descricao && <p class="item__desc">{it.descricao}</p>}
+              </li>
+            ))}
+          </ul>
+        </details>
+      ))}
+
+      <div class="recibo" data-recibo hidden>
+        <div class="recibo__linha">
+          <span>Subtotal</span>
+          <span class="mono" data-r-sub>R$ 0,00</span>
+        </div>
+        <div class="recibo__linha">
+          <span>Entrega</span>
+          <span class="mono" data-r-ent>a combinar</span>
+        </div>
+        <div class="recibo__linha recibo__total">
+          <span>Total</span>
+          <span class="mono" data-r-tot>R$ 0,00</span>
+        </div>
+        <p class="recibo__aviso" data-r-aviso hidden />
+      </div>
+
+      {cardapio!.observacoes && <p class="cardapio__obs">{cardapio!.observacoes}</p>}
+      {dataFmt && <p class="cardapio__data">Cardápio conferido em {dataFmt}</p>}
+    </div>
+  ) : (
+    <p class="cardapio__vazio">
+      Cardápio ainda não catalogado. Chama no WhatsApp que eles te passam tudo.
+    </p>
+  )
+}

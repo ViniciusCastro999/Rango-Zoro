@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import CardRestaurante from '../components/CardRestaurante.astro';
+import { getRestaurantes, getCategorias } from '../lib/restaurantes';
+import { u } from '../lib/url';
+
+const restaurantes = getRestaurantes();
+const categorias = getCategorias(restaurantes);
+const total = restaurantes.length;
+---
+
+<Base titulo="RangoZoro, todo rango do Zoro num lugar só">
+  <div class="envelope">
+    <section class="capa">
+      <p class="capa__local">Conceição dos Ouros · MG</p>
+      <h1 class="capa__titulo">Todo rango do Zoro num lugar só</h1>
+      <p class="capa__linha">
+        <span class="capa__contagem">{total} {total === 1 ? 'lugar' : 'lugares'}</span>
+        pra pedir. Achou, pediu no zap.
+      </p>
+    </section>
+
+    <div class="controles">
+      <input
+        class="busca"
+        type="search"
+        placeholder="Buscar lugar, prato ou bairro"
+        aria-label="Buscar"
+        data-busca
+      />
+      <div class="chips" role="group" aria-label="Filtros">
+        <button class="chip chip--abertos" type="button" data-chip="__abertos__" aria-pressed="false">
+          Só abertos
+        </button>
+        <button class="chip" type="button" data-chip="tudo" aria-pressed="true">Tudo</button>
+        {
+          categorias.map((c) => (
+            <button class="chip" type="button" data-chip={c} aria-pressed="false">
+              {c}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    {
+      total === 0 ? (
+        <p class="vazio">Ainda catalogando os primeiros lugares. Volta já já.</p>
+      ) : (
+        <>
+          <ul class="lista" data-lista>
+            {restaurantes.map((r) => (
+              <CardRestaurante r={r} />
+            ))}
+          </ul>
+          <p class="vazio" data-vazio hidden>
+            Nenhum lugar com esse filtro agora.
+          </p>
+        </>
+      )
+    }
+
+    <footer class="rodape">
+      <p>
+        O RangoZoro junta num lugar só quem faz e entrega comida em Conceição dos Ouros. A
+        gente não entrega nem cobra comissão. O pedido é direto com o restaurante.
+      </p>
+      <p>
+        Seu restaurante não está aqui? <a href={u('sobre')}>Chama a gente</a>.
+      </p>
+    </footer>
+  </div>
+</Base>

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+.env
+.env.*
+
+# arquivos brutos de cardapio (fotos, prints, pdfs) nao vao pro repositorio
+restaurantes/*/fontes/*
+!restaurantes/*/fontes/.gitkeep

@@ -1,0 +1,27 @@
+---
+import { statusAgora } from '../lib/horario.js';
+import type { Horarios } from '../lib/restaurantes';
+
+interface Props {
+  horarios: Horarios;
+  pausado?: boolean;
+  pausaMotivo?: string;
+  classe?: string;
+  principal?: boolean;
+}
+
+const { horarios, pausado = false, pausaMotivo = '', classe = '', principal = false } = Astro.props;
+const s = statusAgora(horarios ?? {}, { pausado, pausaMotivo });
+---
+
+<span
+  class:list={['status', classe]}
+  data-status
+  data-tom={s.tom}
+  data-principal={principal ? 'true' : 'false'}
+  data-horarios={JSON.stringify(horarios ?? {})}
+  data-pausado={String(pausado)}
+  data-pausa-motivo={pausaMotivo}
+>
+  {s.texto}
+</span>

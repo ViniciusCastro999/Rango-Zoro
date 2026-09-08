@@ -1,0 +1,35 @@
+atualizado_em: "2026-09-05"
+
+categorias:
+  - nome: Lanches
+    itens:
+      - nome: X-Salada
+        preco: 18.00
+        descricao: Hambúrguer, queijo, alface, tomate e maionese
+      - nome: X-Egg
+        preco: 21.00
+        descricao: Hambúrguer, queijo, ovo, alface e tomate
+      - nome: X-Bacon
+        preco: 25.00
+      - nome: X-Tudo
+        preco: 32.00
+        descricao: 2 hambúrgueres, ovo, bacon, presunto, queijo, milho, batata palha e salada
+      - nome: X-Frango
+        preco: 24.00
+        descricao: Filé de frango, queijo, catupiry e salada
+
+  - nome: Porções
+    itens:
+      - nome: Batata frita
+        preco: 18.00
+      - nome: Batata frita com cheddar e bacon
+        preco: 28.00
+
+  - nome: Bebidas
+    itens:
+      - nome: Refrigerante lata
+        preco: 6.00
+      - nome: Água
+        preco: 3.00
+
+observacoes: "Ponto do trailer na praça. Entrega grátis no Centro; demais bairros R$ 5."
