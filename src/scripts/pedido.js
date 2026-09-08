@@ -55,8 +55,8 @@ function iniciar(wrap) {
       for (const [k, v] of Object.entries(bruto)) {
         if (k.startsWith('mm:') && v && typeof v === 'object') {
           const q = Math.min(MAX_QTD, Math.max(0, parseInt(v.qtd, 10) || 0));
-          if (q > 0 && v.nome && v.precoCents) {
-            limpo[k] = { nome: v.nome, precoCents: v.precoCents, qtd: q };
+          if (q > 0 && v.a && v.b && v.precoCents) {
+            limpo[k] = { a: v.a, b: v.b, precoCents: v.precoCents, qtd: q };
           }
         } else {
           const n = Math.min(MAX_QTD, Math.max(0, parseInt(v, 10) || 0));
@@ -130,7 +130,8 @@ function iniciar(wrap) {
     } else {
       const antigo = carrinho[key] || {};
       carrinho[key] = {
-        nome: meta.nome ?? antigo.nome,
+        a: meta.a ?? antigo.a,
+        b: meta.b ?? antigo.b,
         precoCents: meta.precoCents ?? antigo.precoCents,
         qtd: q,
       };
@@ -152,11 +153,12 @@ function iniciar(wrap) {
           const li = document.createElement('li');
           li.className = 'item item--mm item--ativo';
           const preco = v.qtd > 1 ? brl(v.precoCents * v.qtd) : brl(v.precoCents);
+          const rotulo = `meio a meio: ${v.a} / ${v.b}`;
           li.innerHTML = `
             <div class="item__linha">
-              <button type="button" class="item__toggle" data-mm-toggle aria-pressed="true" aria-label="Tirar ${esc(v.nome)}">
+              <button type="button" class="item__toggle" data-mm-toggle aria-pressed="true" aria-label="Tirar ${esc(rotulo)}">
                 <span class="item__caixa" aria-hidden="true"></span>
-                <span class="item__nome">${esc(v.nome)}</span>
+                <span class="item__nome">${esc(rotulo)}</span>
               </button>
               <span class="item__dots" aria-hidden="true"></span>
               <span class="item__qtd">
@@ -200,7 +202,7 @@ function iniciar(wrap) {
       const [x, y] = [a, b].sort((m, n) => m.localeCompare(n, 'pt-BR'));
       const key = `mm:${cat}:${x} / ${y}`;
       const atual = carrinho[key]?.qtd || 0;
-      setMM(key, { nome: `½ ${x} / ½ ${y}`, precoCents: Math.max(pa, pb) }, atual + 1);
+      setMM(key, { a: x, b: y, precoCents: Math.max(pa, pb) }, atual + 1);
       selA.value = '';
       selB.value = '';
       podeAdd();
@@ -254,10 +256,21 @@ function iniciar(wrap) {
     });
     Object.entries(carrinho).forEach(([k, v]) => {
       if (k.startsWith('mm:') && v && v.qtd > 0) {
-        out.push({ nome: v.nome, qtd: v.qtd, precoCents: v.precoCents });
+        out.push({ mm: true, a: v.a, b: v.b, qtd: v.qtd, precoCents: v.precoCents });
       }
     });
     return out;
+  }
+
+  // linha do pedido no texto do WhatsApp: "X-Tudo", "2 X-Tudo",
+  // "uma pizza metade Calabresa e metade Portuguesa", "2 pizzas metade ..."
+  function linhaPedido(i) {
+    if (i.mm) {
+      return i.qtd === 1
+        ? `uma pizza metade ${i.a} e metade ${i.b}`
+        : `${i.qtd} pizzas metade ${i.a} e metade ${i.b}`;
+    }
+    return i.qtd === 1 ? i.nome : `${i.qtd} ${i.nome}`;
   }
 
   function atualizar() {
@@ -292,7 +305,8 @@ function iniciar(wrap) {
     }
 
     // Mensagem do WhatsApp: só item e quantidade, sem valores (a loja calcula).
-    const texto = 'Gostaria de pedir:\n\n' + itens.map((i) => `${i.qtd}x ${i.nome}`).join('\n');
+    const texto =
+      'Gostaria de pedir:\n\n' + itens.map((i) => `- ${linhaPedido(i)}`).join('\n');
     zap.href = linkWhatsapp(whatsapp, texto);
     zap.textContent = `Pedir no WhatsApp · ${brl(totalCents)}`;
   }
