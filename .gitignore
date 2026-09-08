@@ -9,3 +9,6 @@ dist/
 # arquivos brutos de cardapio (fotos, prints, pdfs) nao vao pro repositorio
 restaurantes/*/fontes/*
 !restaurantes/*/fontes/.gitkeep
+
+# SQL de sync gerado pelo /sync-cardapio (roda uma vez, nao versiona)
+supabase/sync-*.sql

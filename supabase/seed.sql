@@ -1,6 +1,6 @@
--- Gerado por scripts/exportar-para-sql.mjs em 2026-09-08T14:57:59.949Z
+-- Gerado por scripts/exportar-para-sql.mjs em 2026-09-08T15:06:02.959Z
 -- Rode no SQL Editor do Supabase DEPOIS do schema.sql.
--- Pode rodar de novo quando quiser: limpa tudo e recarrega a partir dos YAML.
+-- Recria tudo a partir dos YAML (apaga o que estiver no banco).
 truncate itens, categorias, restaurantes restart identity cascade;
 
 -- Buteco de Minas

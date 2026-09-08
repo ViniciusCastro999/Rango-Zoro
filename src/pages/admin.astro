@@ -363,6 +363,7 @@ const SUPABASE_ANON = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? '';
         for (const [campo, , tipo] of CAMPOS) {
           const raw = $('c_' + campo).value.trim();
           if (campo === 'pagamentos') patch[campo] = raw ? raw.split(',').map((s) => s.trim()) : [];
+          else if (campo === 'whatsapp') patch[campo] = raw ? raw.replace(/\D/g, '') : null;
           else if (tipo === 'number') patch[campo] = raw === '' ? null : Number(raw);
           else patch[campo] = raw || null;
         }
