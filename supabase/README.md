@@ -18,13 +18,16 @@ Editar lá reflete no site sem precisar de commit nem esperar build.
 
 ## Como fica
 
-- **Site** lê a view `restaurantes_completos` (cardápio já montado em JSON). Leitura é
-  pública; escrever exige estar logado (RLS).
-- **Editar preço, item, horário, pausar:** no `/admin` do site (ou direto no Table Editor
-  do Supabase). Vale na hora, o site busca de novo ao abrir.
-- **Restaurante novo:** aparece pro público no próximo build (o site pré-renderiza uma
-  página por restaurante). Rode o deploy manual em Actions > Deploy > Run workflow, ou
-  espere o próximo push.
+- **Site** lê a view `restaurantes_completos` (só `publicado`, cardápio já montado em
+  JSON). Leitura é pública; escrever exige estar logado (RLS).
+- **Editar preço, item, horário, pausar, publicar:** em `https://.../Rango-Zoro/admin`
+  (login com o usuário que você criou no Supabase). Também dá pra editar direto no Table
+  Editor do Supabase.
+- **Quando vai pro ar:** o site é re-buildado sozinho a cada ~5 min (o GitHub costuma
+  atrasar o agendado, na prática dá 10-15 min). Pra ir na hora: Actions > Deploy no GitHub
+  Pages > **Run workflow**.
+- **`publicado`:** restaurante com `publicado = false` não aparece no site nem gera página.
+  Use pra deixar um lugar em rascunho enquanto acerta os dados.
 
 ## Regenerar o seed a partir dos YAML
 

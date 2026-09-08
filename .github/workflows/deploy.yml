@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # rebuild periódico: pega as edições feitas no /admin (Supabase) sem precisar de commit.
+  # o GitHub costuma atrasar o agendado, então na prática roda a cada ~10-15 min.
+  schedule:
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: read

@@ -19,3 +19,4 @@ horarios:
   sex: ["18:00", "23:59"]
   sab: ["18:00", "23:59"]
   dom: ["18:00", "23:00"]
+publicado: false # dados de contato ainda por confirmar

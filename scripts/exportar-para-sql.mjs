@@ -35,10 +35,11 @@ for (const slug of slugs) {
     ? (yaml.load(fs.readFileSync(cardapioPath, 'utf8')) ?? {})
     : {};
 
+  const publicado = info.publicado === undefined ? true : !!info.publicado;
   sql += `-- ${info.nome ?? slug}\n`;
   sql +=
-    `insert into restaurantes (slug, nome, categoria, cozinha, bairro, endereco, whatsapp, site_pedido, instagram, emoji, taxa_entrega, taxa_entrega_valor, pedido_minimo, pedido_minimo_valor, pagamentos, horarios, pausado, pausa_motivo, destaque, cardapio_atualizado_em, observacoes, posicao) values (\n` +
-    `  ${q(slug)}, ${q(info.nome)}, ${q(info.categoria ?? 'Outros')}, ${arr(info.cozinha)}, ${q(info.bairro)}, ${q(info.endereco)}, ${q(info.whatsapp)}, ${q(info.site_pedido)}, ${q(info.instagram)}, ${q(info.emoji)}, ${q(info.taxa_entrega)}, ${num(info.taxa_entrega_valor)}, ${q(info.pedido_minimo)}, ${num(info.pedido_minimo_valor)}, ${arr(info.pagamentos)}, ${jsonb(info.horarios)}, ${bool(info.pausado)}, ${q(info.pausa_motivo)}, ${bool(info.destaque)}, ${q(cardapio.atualizado_em)}, ${q(cardapio.observacoes)}, 100\n` +
+    `insert into restaurantes (slug, nome, categoria, cozinha, bairro, endereco, whatsapp, site_pedido, instagram, emoji, taxa_entrega, taxa_entrega_valor, pedido_minimo, pedido_minimo_valor, pagamentos, horarios, pausado, pausa_motivo, destaque, publicado, cardapio_atualizado_em, observacoes, posicao) values (\n` +
+    `  ${q(slug)}, ${q(info.nome)}, ${q(info.categoria ?? 'Outros')}, ${arr(info.cozinha)}, ${q(info.bairro)}, ${q(info.endereco)}, ${q(info.whatsapp)}, ${q(info.site_pedido)}, ${q(info.instagram)}, ${q(info.emoji)}, ${q(info.taxa_entrega)}, ${num(info.taxa_entrega_valor)}, ${q(info.pedido_minimo)}, ${num(info.pedido_minimo_valor)}, ${arr(info.pagamentos)}, ${jsonb(info.horarios)}, ${bool(info.pausado)}, ${q(info.pausa_motivo)}, ${bool(info.destaque)}, ${bool(publicado)}, ${q(cardapio.atualizado_em)}, ${q(cardapio.observacoes)}, 100\n` +
     `);\n`;
 
   const cats = Array.isArray(cardapio.categorias) ? cardapio.categorias : [];

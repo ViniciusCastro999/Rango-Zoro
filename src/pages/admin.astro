@@ -1,0 +1,546 @@
+---
+// Painel de edição. Fica atrás de login (Supabase Auth).
+// Escreve direto no banco, o site puxa no próximo build/refresh.
+const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL ?? '';
+const SUPABASE_ANON = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? '';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Admin, RangoZoro</title>
+    <style>
+      :root {
+        --brasa: #d62d20;
+        --tinta: #2b1b12;
+        --tinta-70: #6b5546;
+        --creme: #f9efd6;
+        --papel: #fff;
+        --linha: #e7d4a8;
+        --folha: #1e7a46;
+        --mono: "Courier New", ui-monospace, monospace;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+        color: var(--tinta);
+        background: var(--creme);
+      }
+      .topo {
+        background: var(--brasa);
+        color: var(--creme);
+        padding: 0.7rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 700;
+      }
+      .topo button {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        color: var(--creme);
+        border-radius: 5px;
+        padding: 0.25rem 0.6rem;
+        font: inherit;
+        cursor: pointer;
+      }
+      main { max-width: 40rem; margin: 0 auto; padding: 1rem; }
+      h1, h2, h3 { font-weight: 800; line-height: 1.1; }
+      h2 { margin-top: 1.6rem; border-bottom: 2px solid var(--tinta); padding-bottom: 0.2rem; }
+      label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--tinta-70); margin: 0.5rem 0 0.15rem; }
+      input, select, textarea {
+        width: 100%;
+        font: inherit;
+        padding: 0.4rem 0.5rem;
+        border: 1px solid var(--linha);
+        border-radius: 5px;
+        background: var(--papel);
+      }
+      textarea { min-height: 3.5rem; }
+      .linha { display: flex; gap: 0.5rem; }
+      .linha > * { flex: 1; }
+      .btn {
+        font: inherit;
+        font-weight: 700;
+        padding: 0.5rem 0.9rem;
+        border: 0;
+        border-radius: 5px;
+        background: var(--tinta);
+        color: var(--creme);
+        cursor: pointer;
+      }
+      .btn--brasa { background: var(--brasa); }
+      .btn--fantasma { background: transparent; color: var(--tinta-70); border: 1px solid var(--linha); }
+      .btn--mini { padding: 0.2rem 0.5rem; font-size: 0.8rem; }
+      .lista-rest { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.8rem 0; }
+      .lista-rest button {
+        text-align: left;
+        padding: 0.7rem 0.9rem;
+        border: 1px solid var(--linha);
+        border-radius: 6px;
+        background: var(--papel);
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .cat {
+        border: 1px solid var(--linha);
+        border-radius: 6px;
+        padding: 0.7rem;
+        margin: 0.6rem 0;
+        background: var(--papel);
+      }
+      .cat__cab { display: flex; gap: 0.5rem; align-items: center; }
+      .cat__cab input[type="text"] { font-weight: 700; }
+      .item {
+        display: grid;
+        grid-template-columns: 1fr 5.5rem auto;
+        gap: 0.4rem;
+        margin: 0.35rem 0;
+        align-items: start;
+      }
+      .item textarea { grid-column: 1 / -1; min-height: 2.2rem; font-size: 0.85rem; }
+      .aviso { font-size: 0.8rem; color: var(--tinta-70); }
+      .status-salvo { color: var(--folha); font-weight: 700; font-size: 0.85rem; }
+      .status-erro { color: var(--brasa); font-weight: 700; font-size: 0.85rem; }
+      [hidden] { display: none !important; }
+      .dias { display: grid; grid-template-columns: 3rem 1fr 1fr auto; gap: 0.3rem 0.5rem; align-items: center; }
+      .dias input[type="time"] { padding: 0.25rem; }
+      fieldset { border: 1px solid var(--linha); border-radius: 6px; margin: 0.6rem 0; }
+    </style>
+  </head>
+  <body data-url={SUPABASE_URL} data-anon={SUPABASE_ANON}>
+    <div class="topo">
+      <span>RangoZoro · admin</span>
+      <button id="sair" hidden>sair</button>
+    </div>
+
+    <main>
+      <!-- login -->
+      <section id="login">
+        <h1>Entrar</h1>
+        <p class="aviso">Use o email e a senha que você criou no Supabase.</p>
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" />
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" autocomplete="current-password" />
+        <p><button class="btn" id="entrar">Entrar</button></p>
+        <p id="login-erro" class="status-erro" hidden></p>
+      </section>
+
+      <!-- lista -->
+      <section id="painel" hidden>
+        <h1>Restaurantes</h1>
+        <div class="lista-rest" id="lista-rest"></div>
+        <button class="btn btn--fantasma" id="novo">+ novo restaurante</button>
+      </section>
+
+      <!-- editor -->
+      <section id="editor" hidden>
+        <p><button class="btn btn--fantasma btn--mini" id="voltar">← todos</button></p>
+        <h1 id="editor-titulo">—</h1>
+        <span id="salvo" class="status-salvo" hidden>salvo</span>
+        <span id="erro" class="status-erro" hidden></span>
+
+        <h2>Dados</h2>
+        <div id="form-dados"></div>
+        <p><button class="btn btn--brasa" id="salvar-dados">Salvar dados</button></p>
+
+        <h2>Horário</h2>
+        <div class="dias" id="dias"></div>
+        <p class="aviso">Deixe em branco pra "fechado". Vira o dia seguinte? Ex.: 18:00 → 00:30.</p>
+        <p><button class="btn btn--brasa" id="salvar-horario">Salvar horário</button></p>
+
+        <h2>Cardápio</h2>
+        <div id="cats"></div>
+        <button class="btn btn--fantasma" id="add-cat">+ categoria</button>
+
+        <p class="aviso" style="margin-top:2rem;border-top:1px solid var(--linha);padding-top:1rem">
+          O que você muda aqui entra no site sozinho em uns minutos. Pra ver na hora, abra
+          <a href="https://github.com/ViniciusCastro999/Rango-Zoro/actions/workflows/deploy.yml" target="_blank" rel="noopener">Actions no GitHub</a>
+          e clique em <strong>Run workflow</strong>. Restaurante novo só aparece pro público depois desse build.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      // @ts-nocheck
+      import { createClient } from '@supabase/supabase-js';
+
+      const body = document.body;
+      const sb = createClient(body.dataset.url, body.dataset.anon);
+
+      const $ = (id) => document.getElementById(id);
+      const el = (tag, props = {}, kids = []) => {
+        const n = Object.assign(document.createElement(tag), props);
+        for (const k of [].concat(kids)) n.append(k);
+        return n;
+      };
+      const DIAS = [
+        ['seg', 'Seg'], ['ter', 'Ter'], ['qua', 'Qua'], ['qui', 'Qui'],
+        ['sex', 'Sex'], ['sab', 'Sáb'], ['dom', 'Dom'],
+      ];
+      const CAMPOS = [
+        ['nome', 'Nome', 'text'],
+        ['categoria', 'Categoria (vira o filtro na home)', 'text'],
+        ['emoji', 'Emoji', 'text'],
+        ['bairro', 'Bairro', 'text'],
+        ['endereco', 'Endereço', 'text'],
+        ['whatsapp', 'WhatsApp (só números, com 55)', 'text'],
+        ['site_pedido', 'Site de pedido de fora (deixa vazio se pede no zap)', 'text'],
+        ['instagram', 'Instagram (@)', 'text'],
+        ['taxa_entrega', 'Entrega (texto que aparece)', 'text'],
+        ['taxa_entrega_valor', 'Entrega (valor pra somar, 0 = grátis)', 'number'],
+        ['pedido_minimo', 'Pedido mínimo (texto)', 'text'],
+        ['pedido_minimo_valor', 'Pedido mínimo (valor)', 'number'],
+        ['pagamentos', 'Pagamentos (separados por vírgula)', 'text'],
+        ['observacoes', 'Observações do cardápio', 'textarea'],
+      ];
+
+      let atual = null; // restaurante em edição (objeto da tabela)
+      let cats = []; // categorias com itens
+
+      function toast(ok, msg) {
+        $('salvo').hidden = !ok;
+        $('erro').hidden = ok;
+        if (!ok) $('erro').textContent = msg || 'deu erro';
+        if (ok) setTimeout(() => ($('salvo').hidden = true), 1500);
+      }
+
+      // ---------- auth ----------
+      async function checar() {
+        const { data } = await sb.auth.getSession();
+        if (data.session) mostrarPainel();
+        else {
+          $('login').hidden = false;
+          $('painel').hidden = true;
+          $('editor').hidden = true;
+          $('sair').hidden = true;
+        }
+      }
+      $('entrar').onclick = async () => {
+        $('login-erro').hidden = true;
+        const { error } = await sb.auth.signInWithPassword({
+          email: $('email').value.trim(),
+          password: $('senha').value,
+        });
+        if (error) {
+          $('login-erro').hidden = false;
+          $('login-erro').textContent = error.message;
+        } else checar();
+      };
+      $('sair').onclick = async () => {
+        await sb.auth.signOut();
+        checar();
+      };
+
+      // ---------- lista ----------
+      async function mostrarPainel() {
+        $('login').hidden = true;
+        $('editor').hidden = true;
+        $('painel').hidden = false;
+        $('sair').hidden = false;
+        const { data, error } = await sb
+          .from('restaurantes')
+          .select('slug,nome,publicado')
+          .order('nome');
+        const box = $('lista-rest');
+        box.textContent = '';
+        if (error) return toast(false, error.message);
+        for (const r of data) {
+          box.append(
+            el('button', {
+              textContent: r.nome + (r.publicado ? '' : ' (rascunho)'),
+              onclick: () => abrir(r.slug),
+            }),
+          );
+        }
+      }
+
+      $('novo').onclick = async () => {
+        const nome = prompt('Nome do restaurante?');
+        if (!nome) return;
+        const slug = nome
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '');
+        const { error } = await sb.from('restaurantes').insert({
+          slug,
+          nome,
+          categoria: 'Outros',
+          publicado: false,
+          horarios: {},
+        });
+        if (error) return alert(error.message);
+        abrir(slug);
+      };
+
+      $('voltar').onclick = mostrarPainel;
+
+      // ---------- editor ----------
+      async function abrir(slug) {
+        const { data: r, error } = await sb.from('restaurantes').select('*').eq('slug', slug).single();
+        if (error) return toast(false, error.message);
+        atual = r;
+        const { data: cs } = await sb
+          .from('categorias')
+          .select('*, itens(*)')
+          .eq('restaurante_slug', slug)
+          .order('posicao');
+        cats = (cs ?? []).map((c) => ({
+          ...c,
+          itens: (c.itens ?? []).sort((a, b) => a.posicao - b.posicao),
+        }));
+
+        $('painel').hidden = true;
+        $('editor').hidden = false;
+        $('editor-titulo').textContent = r.nome;
+
+        // form dados
+        const f = $('form-dados');
+        f.textContent = '';
+        for (const [campo, rotulo, tipo] of CAMPOS) {
+          f.append(el('label', { textContent: rotulo, htmlFor: 'c_' + campo }));
+          let inp;
+          if (tipo === 'textarea') inp = el('textarea', { id: 'c_' + campo });
+          else inp = el('input', { id: 'c_' + campo, type: tipo === 'number' ? 'number' : 'text', step: '0.01' });
+          const v = r[campo];
+          inp.value = Array.isArray(v) ? v.join(', ') : v ?? '';
+          f.append(inp);
+        }
+        const flags = el('fieldset', {}, [
+          el('label', { textContent: 'Destaque (topo + selo "em alta")' }),
+          chk('c_destaque', r.destaque),
+          el('label', { textContent: 'Pausado (fechado por uns dias)' }),
+          chk('c_pausado', r.pausado),
+          el('label', { textContent: 'Motivo da pausa' }),
+          Object.assign(el('input', { id: 'c_pausa_motivo', type: 'text' }), { value: r.pausa_motivo ?? '' }),
+          el('label', { textContent: 'Publicado (aparece no site)' }),
+          chk('c_publicado', r.publicado),
+        ]);
+        f.append(flags);
+
+        // horário
+        const d = $('dias');
+        d.textContent = '';
+        for (const [key, lbl] of DIAS) {
+          const faixa = r.horarios?.[key];
+          const par = Array.isArray(faixa) && Array.isArray(faixa[0]) ? faixa[0] : faixa;
+          d.append(el('span', { textContent: lbl, style: 'font-weight:700' }));
+          d.append(Object.assign(el('input', { type: 'time', id: 'h_' + key + '_a' }), { value: par?.[0] ?? '' }));
+          d.append(Object.assign(el('input', { type: 'time', id: 'h_' + key + '_f' }), { value: par?.[1] ?? '' }));
+          d.append(
+            el('button', {
+              className: 'btn btn--fantasma btn--mini',
+              textContent: 'limpar',
+              onclick: () => {
+                $('h_' + key + '_a').value = '';
+                $('h_' + key + '_f').value = '';
+              },
+            }),
+          );
+        }
+
+        renderCats();
+        toast(true);
+        $('salvo').hidden = true;
+      }
+
+      function chk(id, val) {
+        const c = el('input', { id, type: 'checkbox' });
+        c.checked = !!val;
+        return c;
+      }
+
+      $('salvar-dados').onclick = async () => {
+        const patch = {};
+        for (const [campo, , tipo] of CAMPOS) {
+          const raw = $('c_' + campo).value.trim();
+          if (campo === 'pagamentos') patch[campo] = raw ? raw.split(',').map((s) => s.trim()) : [];
+          else if (tipo === 'number') patch[campo] = raw === '' ? null : Number(raw);
+          else patch[campo] = raw || null;
+        }
+        patch.destaque = $('c_destaque').checked;
+        patch.pausado = $('c_pausado').checked;
+        patch.pausa_motivo = $('c_pausa_motivo').value.trim() || null;
+        patch.publicado = $('c_publicado').checked;
+        const { error } = await sb.from('restaurantes').update(patch).eq('slug', atual.slug);
+        toast(!error, error?.message);
+        if (!error) atual = { ...atual, ...patch };
+      };
+
+      $('salvar-horario').onclick = async () => {
+        const horarios = {};
+        for (const [key] of DIAS) {
+          const a = $('h_' + key + '_a').value;
+          const fim = $('h_' + key + '_f').value;
+          horarios[key] = a && fim ? [a, fim] : null;
+        }
+        const { error } = await sb.from('restaurantes').update({ horarios }).eq('slug', atual.slug);
+        toast(!error, error?.message);
+      };
+
+      // ---------- cardápio ----------
+      async function bumpCardapio() {
+        await sb
+          .from('restaurantes')
+          .update({ cardapio_atualizado_em: new Date().toISOString().slice(0, 10) })
+          .eq('slug', atual.slug);
+      }
+
+      function renderCats() {
+        const box = $('cats');
+        box.textContent = '';
+        cats.forEach((c, ci) => {
+          const wrap = el('div', { className: 'cat' });
+          const nomeInp = Object.assign(el('input', { type: 'text' }), { value: c.nome });
+          nomeInp.onchange = async () => {
+            const { error } = await sb.from('categorias').update({ nome: nomeInp.value.trim() }).eq('id', c.id);
+            if (!error) c.nome = nomeInp.value.trim();
+            toast(!error, error?.message);
+          };
+          const mm = el('input', { type: 'checkbox', title: 'meio a meio (pizza)' });
+          mm.checked = c.meio_a_meio;
+          mm.onchange = async () => {
+            const { error } = await sb.from('categorias').update({ meio_a_meio: mm.checked }).eq('id', c.id);
+            toast(!error, error?.message);
+          };
+          wrap.append(
+            el('div', { className: 'cat__cab' }, [
+              nomeInp,
+              el('label', { style: 'margin:0;white-space:nowrap', title: 'pizza meio a meio' }, ['½ ', mm]),
+              mover(ci, cats, async (novo) => {
+                await reordenar('categorias', novo);
+              }),
+              el('button', {
+                className: 'btn btn--fantasma btn--mini',
+                textContent: '✕',
+                title: 'apagar categoria',
+                onclick: async () => {
+                  if (!confirm(`Apagar "${c.nome}" e os itens dela?`)) return;
+                  await sb.from('categorias').delete().eq('id', c.id);
+                  cats.splice(ci, 1);
+                  renderCats();
+                  bumpCardapio();
+                },
+              }),
+            ]),
+          );
+
+          c.itens.forEach((it, ii) => wrap.append(linhaItem(c, it, ii)));
+
+          wrap.append(
+            el('button', {
+              className: 'btn btn--fantasma btn--mini',
+              textContent: '+ item',
+              onclick: async () => {
+                const pos = (c.itens.at(-1)?.posicao ?? 0) + 10;
+                const { data, error } = await sb
+                  .from('itens')
+                  .insert({ categoria_id: c.id, nome: 'Novo item', posicao: pos })
+                  .select()
+                  .single();
+                if (error) return toast(false, error.message);
+                c.itens.push(data);
+                renderCats();
+                bumpCardapio();
+              },
+            }),
+          );
+          box.append(wrap);
+        });
+      }
+
+      function linhaItem(c, it, ii) {
+        const nome = Object.assign(el('input', { type: 'text' }), { value: it.nome });
+        const preco = Object.assign(el('input', { type: 'number', step: '0.01', placeholder: 'preço' }), {
+          value: it.preco ?? '',
+        });
+        const desc = Object.assign(el('textarea', { placeholder: 'descrição (opcional)' }), {
+          value: it.descricao ?? '',
+        });
+        const salvar = async () => {
+          const patch = {
+            nome: nome.value.trim(),
+            preco: preco.value === '' ? null : Number(preco.value),
+            descricao: desc.value.trim() || null,
+          };
+          const { error } = await sb.from('itens').update(patch).eq('id', it.id);
+          Object.assign(it, patch);
+          toast(!error, error?.message);
+          if (!error) bumpCardapio();
+        };
+        nome.onchange = preco.onchange = desc.onchange = salvar;
+        const acoes = el('span', {}, [
+          mover(ii, c.itens, async (novo) => {
+            c.itens = novo;
+            await reordenar('itens', novo);
+          }),
+          el('button', {
+            className: 'btn btn--fantasma btn--mini',
+            textContent: '✕',
+            onclick: async () => {
+              await sb.from('itens').delete().eq('id', it.id);
+              c.itens.splice(ii, 1);
+              renderCats();
+              bumpCardapio();
+            },
+          }),
+        ]);
+        return el('div', { className: 'item' }, [nome, preco, acoes, desc]);
+      }
+
+      function mover(idx, lista, aplicar) {
+        const span = el('span', { style: 'white-space:nowrap' });
+        for (const [txt, delta] of [['↑', -1], ['↓', 1]]) {
+          span.append(
+            el('button', {
+              className: 'btn btn--fantasma btn--mini',
+              textContent: txt,
+              onclick: async () => {
+                const j = idx + delta;
+                if (j < 0 || j >= lista.length) return;
+                const novo = lista.slice();
+                [novo[idx], novo[j]] = [novo[j], novo[idx]];
+                await aplicar(novo);
+                if (lista === cats) cats = novo;
+                renderCats();
+              },
+            }),
+          );
+        }
+        return span;
+      }
+
+      async function reordenar(tabela, lista) {
+        for (let i = 0; i < lista.length; i++) {
+          await sb.from(tabela).update({ posicao: (i + 1) * 10 }).eq('id', lista[i].id);
+        }
+        bumpCardapio();
+      }
+
+      $('add-cat').onclick = async () => {
+        const nome = prompt('Nome da categoria?');
+        if (!nome) return;
+        const pos = (cats.at(-1)?.posicao ?? 0) + 10;
+        const { data, error } = await sb
+          .from('categorias')
+          .insert({ restaurante_slug: atual.slug, nome: nome.trim(), posicao: pos })
+          .select()
+          .single();
+        if (error) return toast(false, error.message);
+        cats.push({ ...data, itens: [] });
+        renderCats();
+        bumpCardapio();
+      };
+
+      checar();
+    </script>
+  </body>
+</html>
