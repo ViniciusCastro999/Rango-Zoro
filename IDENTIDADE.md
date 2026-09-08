@@ -57,22 +57,18 @@ em cima de cada bloco.
 
 ## Marca
 
-Logotipo tipográfico: **rangozoro.** numa palavra só, tudo minúsculo, em Darker Grotesque
-900 com tracking bem fechado. "rango" em `--tinta`, "zoro" em `--brasa`, e o ponto final
-em `--pequi`. O ponto é o único detalhe de cor e o gancho da marca.
+Tudo em Darker Grotesque 900, minúsculo, com tracking bem fechado. O ponto final em
+`--pequi` é o único detalhe de cor à parte e o gancho da marca.
 
-- Arquivo: `public/marca/logo-rangozoro.svg`
-- No cabeçalho do site (barra `--brasa`): "rango" em `--tinta`, "zoro" em `--creme`, ponto
-  em `--pequi`.
-- Ícone (`public/favicon.svg`): **rz.** em quadrado `--tinta` de cantos arredondados,
-  "r" creme, "z" `--brasa`, ponto `--pequi`.
-- Foto de perfil do Instagram (`identidade/instagram/img/perfil.png`): estilo cupom, "RZ"
-  em Courier Prime entre duas linhas `====`, fundo `--tinta`.
+- **Ícone: `rz.`** em quadrado `--brasa` (vermelho). "r" em `--creme`, "z" em `--tinta`,
+  ponto em `--pequi`. É a forma principal: favicon (`public/favicon.svg`) e foto de perfil
+  do Instagram (`identidade/instagram/img/perfil.png`, 1080).
+- **Wordmark: `rangozoro.`** numa palavra só. Em fundo claro: "rango" `--tinta`, "zoro"
+  `--brasa`, ponto `--pequi` (`public/marca/logo-rangozoro.svg`). No cabeçalho do site
+  (barra vermelha): "rango" `--creme`, "zoro" `--tinta`, ponto `--pequi` (igual ao ícone).
 
-Os SVGs de marca já vêm com o texto convertido em contornos, pra não depender de webfont
-onde SVG não carrega fonte. Pra regerar depois de mudar cor ou tracking:
-`node identidade/logos/gerar-marca.mjs` (instruções no topo do arquivo). Outras direções
-exploradas ficam em `identidade/logos/galeria.html`.
+Os SVGs de marca vêm com o texto em contornos, pra não depender de webfont. Pra regerar
+depois de mudar cor: `node identidade/logos/gerar-marca.mjs` (instruções no topo).
 
 ## Voz (escrita)
 

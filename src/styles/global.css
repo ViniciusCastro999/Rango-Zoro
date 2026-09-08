@@ -100,11 +100,11 @@ img {
   letter-spacing: -0.035em;
   line-height: 1;
   text-decoration: none;
-  color: var(--tinta);
+  color: var(--creme);
 }
 
 .marca__z {
-  color: var(--creme);
+  color: var(--tinta);
 }
 
 .marca__dot {

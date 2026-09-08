@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="RangoZoro">
-  <rect width="64" height="64" rx="14" fill="#d62d20"/>
-  <g transform="translate(12.16 49.45) scale(0.4362)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-label="RangoZoro">
+  <rect width="1080" height="1080" rx="0" fill="#d62d20"/>
+  <g transform="translate(205.20 834.41) scale(7.3603)">
     <path fill="#f9efd6" transform="translate(0.00)" d="M17.50 0L3.50 0L3.50-41.40L16.70-41.40L17.60-29.30L17.50-20.30L17.50 0M17.50-16.50L17.20-25.80Q17.10-27.60 17.75-30.25Q18.40-32.90 20.15-35.45Q21.90-38 25.10-39.70Q28.30-41.40 33.20-41.40L34.10-41.40L34.10-25.90L33.10-25.90Q29.40-25.90 26.45-25.60Q23.50-25.30 21.55-24.40Q19.60-23.50 18.55-21.60Q17.50-19.70 17.50-16.50"/>
     <path fill="#2b1b12" transform="translate(31.90)" d="M41.40 0L3.50 0L3.50-10L25.50-31.60L4.90-31.60L4.90-41.70L41.40-41.70L41.40-31.90L20.20-10.20L41.40-10.20"/>
     <circle cx="82.5" cy="-4" r="8.5" fill="#f2a81d"/>

@@ -60,27 +60,31 @@ const CAP = 0.80; // topo aprox das minúsculas altas da DG, relativo ao size
 `);
 }
 
-// ---------- favicon ----------
-{
+// ---------- ícone "rz." (fundo vermelho) ----------
+// usado no favicon (64) e na foto de perfil do Instagram (1080)
+function iconeRz(lado, raio) {
   const size = 100;
-  const g = group([{ text: 'r', fill: '#f9efd6' }, { text: 'z', fill: '#d62d20' }], size);
+  const g = group([{ text: 'r', fill: '#f9efd6' }, { text: 'z', fill: '#2b1b12' }], size);
   const r = 0.085 * size;
   const dotCx = g.width + r * 0.55;
   const cW = dotCx + r;
   const cH = CAP * size;
-  const scale = 42 / Math.max(cW, cH);
-  const gx = (64 - cW * scale) / 2;
-  const gy = (64 - cH * scale) / 2 + cH * scale;
-  fs.writeFileSync(`${OUT}/public/favicon.svg`,
-`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="RangoZoro">
-  <rect width="64" height="64" rx="14" fill="#2b1b12"/>
+  const alvo = lado * 0.62;
+  const scale = alvo / Math.max(cW, cH);
+  const gx = (lado - cW * scale) / 2;
+  const gy = (lado - cH * scale) / 2 + cH * scale;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${lado} ${lado}" role="img" aria-label="RangoZoro">
+  <rect width="${lado}" height="${lado}" rx="${raio}" fill="#d62d20"/>
   <g transform="translate(${gx.toFixed(2)} ${gy.toFixed(2)}) scale(${scale.toFixed(4)})">
     ${g.inner}
     <circle cx="${dotCx.toFixed(1)}" cy="-4" r="${r.toFixed(1)}" fill="#f2a81d"/>
   </g>
 </svg>
-`);
+`;
 }
+
+fs.writeFileSync(`${OUT}/public/favicon.svg`, iconeRz(64, 14));
+fs.writeFileSync(`${OUT}/identidade/instagram/perfil-instagram.svg`, iconeRz(1080, 0));
 
 // ---------- OG 1200x630 ----------
 {

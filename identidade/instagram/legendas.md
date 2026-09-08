@@ -1,7 +1,8 @@
 # RangoZoro, kit de lançamento @rango.zoro
 
 Imagens em `identidade/instagram/img/`. Fonte editável dos posts: `artes.html`.
-Fonte da foto de perfil: `perfil-final.html`.
+Foto de perfil: `img/perfil.png` (o ícone `rz.` no vermelho, gerado por
+`identidade/logos/gerar-marca.mjs`).
 (Abre no navegador, mexe no texto, roda o screenshot de novo.)
 
 Ordem sugerida: 1 (lançamento), 6 (por que), 7 (o site tá assim), 2 (como funciona),
