@@ -34,12 +34,43 @@ const dataFmt = cardapio?.atualizado_em
         )}
       </div>
 
-      {cardapio!.categorias.map((cat) => (
-        <details class="cardapio__cat" open={!colapsar}>
+      {cardapio!.categorias.map((cat) => {
+        const comPreco = cat.itens.filter((i) => i.preco != null);
+        const mm = interativo && cat.meio_a_meio && comPreco.length >= 2;
+        return (
+        <details class="cardapio__cat" open={!colapsar} data-cat={cat.nome}>
           <summary class="cardapio__cabeca">
             <h3 class="cardapio__titulo">{cat.nome}</h3>
             <span class="cardapio__conta">{cat.itens.length}</span>
           </summary>
+
+          {mm && (
+            <div class="mm" data-mm data-cat={cat.nome}>
+              <span class="mm__tag">meio a meio</span>
+              <div class="mm__linha">
+                <select class="mm__sel" data-mm-a aria-label="Primeira metade">
+                  <option value="">1ª metade</option>
+                  {comPreco.map((i) => (
+                    <option value={i.nome} data-preco={i.preco}>
+                      {i.nome}
+                    </option>
+                  ))}
+                </select>
+                <select class="mm__sel" data-mm-b aria-label="Segunda metade">
+                  <option value="">2ª metade</option>
+                  {comPreco.map((i) => (
+                    <option value={i.nome} data-preco={i.preco}>
+                      {i.nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button type="button" class="mm__add" data-mm-add>
+                adicionar
+              </button>
+            </div>
+          )}
+
           <ul class="cardapio__itens">
             {cat.itens.map((it, ii) => (
               <li
@@ -82,7 +113,8 @@ const dataFmt = cardapio?.atualizado_em
             ))}
           </ul>
         </details>
-      ))}
+        );
+      })}
 
       {interativo && (
         <div class="recibo" data-recibo hidden>

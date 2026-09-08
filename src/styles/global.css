@@ -559,6 +559,74 @@ img {
   border-bottom: 0;
 }
 
+/* ---------- meio a meio ---------- */
+.mm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.55rem;
+  padding: 0.55rem 0 0.7rem;
+  margin-bottom: 0.2rem;
+  border-bottom: 1px dashed var(--linha);
+}
+
+.mm__tag {
+  font-family: var(--fonte-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brasa-escura);
+  background: var(--pequi);
+  border-radius: 4px;
+  padding: 0.12rem 0.4rem;
+}
+
+.mm__linha {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.mm__sel {
+  flex: 1 1 0;
+  min-width: 0;
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.3rem;
+  border: 1.5px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+.mm__add {
+  flex: 1 1 100%;
+  font-family: var(--fonte-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.6rem;
+  border: 1.5px dashed var(--brasa);
+  border-radius: var(--raio);
+  background: none;
+  color: var(--brasa-escura);
+  cursor: pointer;
+}
+
+.mm__add:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.item--mm .item__nome {
+  font-weight: 600;
+}
+
+.item--mm .item__linha {
+  align-items: center;
+}
+
 .item {
   border-bottom: 1px dashed var(--linha);
 }

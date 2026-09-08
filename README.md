@@ -57,6 +57,10 @@ O site é gerado desses YAMLs no `npm run build`. Não tem banco de dados nem pa
    no Claude Code. Ou escreva o `cardapio.yaml` à mão (schema em
    `.claude/skills/sync-cardapio/SKILL.md`).
 
+Nas categorias de pizza, ponha `meio_a_meio: true` (no nível da categoria, junto de
+`nome:` e `itens:`). O site mostra um "monte a meia a meia" com dois sabores e cobra o
+preço da metade mais cara.
+
 ### Atualizar um cardápio
 
 Jogue o material novo em `restaurantes/<slug>/fontes/` e rode `/sync-cardapio <slug>`. O

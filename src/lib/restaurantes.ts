@@ -38,6 +38,7 @@ export interface ItemCardapio {
 export interface CategoriaCardapio {
   nome: string;
   itens: ItemCardapio[];
+  meio_a_meio?: boolean; // categoria de pizza: aceita montar meia a meia
 }
 
 export interface Cardapio {

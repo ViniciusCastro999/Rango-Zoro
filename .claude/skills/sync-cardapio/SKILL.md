@@ -71,6 +71,7 @@ As fontes podem ser: fotos de cardápio impresso, prints de conversa de WhatsApp
 atualizado_em: "2026-09-07"      # data da última conferência
 categorias:
   - nome: Pizzas grandes
+    meio_a_meio: true            # categoria de pizza: site deixa montar meia a meia
     itens:
       - nome: Calabresa
         preco: 52.00             # número; opcional se o lugar não divulga preço
@@ -78,6 +79,9 @@ categorias:
 observacoes: >-                  # opcional, texto livre
   Borda recheada + R$ 6. Meio a meio: valor da mais cara.
 ```
+
+Ponha `meio_a_meio: true` em toda categoria de pizza (salgada, doce, broto, grande).
+O site cobra o preço da metade mais cara, seguindo a regra padrão de pizzaria.
 
 ## Observações
 

@@ -3,6 +3,7 @@ atualizado_em: "2026-09-05"
 
 categorias:
   - nome: Pizzas grandes (8 fatias)
+    meio_a_meio: true
     itens:
       - nome: Mussarela
         preco: 45.00
@@ -20,6 +21,7 @@ categorias:
         descricao: Lombo, bacon, cebola caramelizada e catupiry
 
   - nome: Pizzas doces
+    meio_a_meio: true
     itens:
       - nome: Chocolate com morango
         preco: 52.00
