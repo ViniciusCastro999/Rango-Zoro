@@ -2,6 +2,8 @@
 // Soma itens e entrega, e gera o link do WhatsApp com a lista e as quantidades.
 // Não manda valores no texto: a loja calcula. Só roda na página do restaurante.
 
+import { track } from './track.js';
+
 const wrap = document.querySelector('[data-pedido]');
 if (wrap) iniciar(wrap);
 
@@ -36,6 +38,9 @@ function iniciar(wrap) {
   const lis = [...document.querySelectorAll('.item[data-item]')];
   const chavesDom = new Set(lis.map((li) => li.dataset.item));
   const catsMM = new Set([...document.querySelectorAll('[data-mm]')].map((el) => el.dataset.cat));
+
+  // enquanto true, atualizar() não dispara evento (é a montagem inicial da tela)
+  let iniciando = true;
 
   // carrinho: chave normal -> qtd (número); chave "mm:<cat>:<a> / <b>" -> {nome, precoCents, qtd}
   let carrinho = carregar();
@@ -212,14 +217,27 @@ function iniciar(wrap) {
 
   renderMM();
 
-  // registra o clique no "Pedir no WhatsApp"
+  // Funil de pedido pro GoatCounter:
+  //   montou/<slug>       -> marcou o primeiro item (começou a montar)
+  //   pedido/<slug>       -> clicou em "Pedir no WhatsApp" (qualquer)
+  //   pedido-montado/<slug> -> clicou já com itens marcados
+  // e os totais gerais: montou-pedido, pedido-com-itens, pedido-sem-itens.
+  let jaContouMontou = false;
+  function marcouAlgo() {
+    if (jaContouMontou || iniciando) return;
+    jaContouMontou = true;
+    track('montou/' + slug, 'Começou a montar: ' + (nome || slug));
+    track('montou-pedido', 'Começou a montar um pedido');
+  }
+
   zap.addEventListener('click', () => {
-    const g = window.goatcounter;
-    if (g && typeof g.count === 'function') {
-      g.count({ path: 'pedido/' + slug, title: 'Pedido: ' + (nome || slug), event: true });
-      if (itensDoPedido().length > 0) {
-        g.count({ path: 'pedido-com-itens', title: 'Pedido com itens marcados', event: true });
-      }
+    const temItens = itensDoPedido().length > 0;
+    track('pedido/' + slug, 'Pedido: ' + (nome || slug));
+    if (temItens) {
+      track('pedido-montado/' + slug, 'Pedido montado: ' + (nome || slug));
+      track('pedido-com-itens', 'Clicou em pedir com itens marcados');
+    } else {
+      track('pedido-sem-itens', 'Clicou em pedir sem marcar nada');
     }
   });
 
@@ -299,6 +317,7 @@ function iniciar(wrap) {
       return;
     }
 
+    marcouAlgo();
     resumo.hidden = false;
     elItens.textContent = `${unidades} ${unidades === 1 ? 'item' : 'itens'}`;
     elTotal.textContent = brl(totalCents);
@@ -322,4 +341,5 @@ function iniciar(wrap) {
   }
 
   atualizar();
+  iniciando = false;
 }

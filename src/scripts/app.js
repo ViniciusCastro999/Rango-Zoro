@@ -1,4 +1,5 @@
 import { statusAgora } from '../lib/horario.js';
+import { track } from './track.js';
 
 // 1. Recalcula "aberto agora" no navegador (o build pode ter sido horas atrás).
 function hidratarStatus() {
@@ -51,7 +52,14 @@ function filtros() {
     if (vazio) vazio.hidden = visiveis > 0;
   }
 
-  busca?.addEventListener('input', aplicar);
+  let buscaContada = false;
+  busca?.addEventListener('input', () => {
+    if (!buscaContada && (busca.value || '').trim().length >= 2) {
+      buscaContada = true;
+      track('home-busca', 'Usou a busca na home');
+    }
+    aplicar();
+  });
 
   chips.forEach((chip) => {
     chip.addEventListener('click', () => {
@@ -59,12 +67,16 @@ function filtros() {
       if (abertosChip) {
         soAbertos = chip.getAttribute('aria-pressed') !== 'true';
         chip.setAttribute('aria-pressed', String(soAbertos));
+        if (soAbertos) track('home-so-abertos', 'Filtrou por "só abertos"');
       } else {
         chips
           .filter((c) => c.dataset.chip !== '__abertos__')
           .forEach((c) => c.setAttribute('aria-pressed', 'false'));
         chip.setAttribute('aria-pressed', 'true');
         categoria = chip.dataset.chip || 'tudo';
+        if (categoria !== 'tudo') {
+          track('home-categoria/' + categoria, 'Filtrou por: ' + (chip.textContent || '').trim());
+        }
       }
       aplicar();
     });
@@ -82,14 +94,9 @@ setInterval(hidratarStatus, 60_000);
 const irSite = document.querySelector('[data-ir-site]');
 if (irSite) {
   irSite.addEventListener('click', () => {
-    const g = window.goatcounter;
-    if (g && typeof g.count === 'function') {
-      g.count({
-        path: 'pedido/' + irSite.dataset.slug,
-        title: 'Pedido: ' + (irSite.dataset.nome || irSite.dataset.slug),
-        event: true,
-      });
-      g.count({ path: 'pedido-site-externo', title: 'Pedido em site externo', event: true });
-    }
+    const slug = irSite.dataset.slug;
+    const nome = irSite.dataset.nome || slug;
+    track('pedido/' + slug, 'Pedido: ' + nome);
+    track('pedido-site-externo', 'Foi pro site de pedido de fora');
   });
 }

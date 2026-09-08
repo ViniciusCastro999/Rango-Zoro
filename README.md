@@ -86,16 +86,28 @@ contornos. Instruções no topo do arquivo.
 
 ## Números de acesso
 
-O site usa **GoatCounter** (grátis, sem cookie, sem banner de privacidade). Ele conta:
+O site usa **GoatCounter** (grátis, sem cookie, sem banner de privacidade). Além das
+visitas por página, ele registra estes eventos (aba **Events** do painel):
 
-- quantas pessoas entram e em que páginas (cada página de restaurante mostra o interesse
-  naquele lugar);
-- um evento **`pedido/<slug>`** toda vez que alguém clica em "Pedir no WhatsApp", pra você
-  ver de qual restaurante vem mais pedido.
+| Evento | Quando |
+|---|---|
+| `montou/<slug>` | a pessoa marcou o primeiro item na página daquele restaurante |
+| `pedido/<slug>` | clicou em "Pedir no WhatsApp" (ou "Fazer pedido no site"), com ou sem itens |
+| `pedido-montado/<slug>` | clicou em "Pedir no WhatsApp" já com itens marcados |
+| `montou-pedido` | total geral de "começou a montar um pedido" |
+| `pedido-com-itens` | total geral de cliques em pedir com itens marcados |
+| `pedido-sem-itens` | clicou em pedir sem marcar nada (só quer o contato da loja) |
+| `pedido-site-externo` | seguiu pro site de pedido de fora |
+| `home-busca` | usou o campo de busca na home |
+| `home-so-abertos` | ligou o filtro "Só abertos" |
+| `home-categoria/<cat>` | filtrou por uma categoria |
+
+Assim dá pra ver o funil de cada lugar: **visitas → `montou/<slug>` → `pedido/<slug>`**.
 
 Pra ligar: criar conta em https://goatcounter.com com o código `rangozoro` (ou outro, daí
 troque `CONTADOR` em `src/layouts/Base.astro`). O painel fica em
-`https://rangozoro.goatcounter.com`. O script só roda no site publicado, não no `npm run dev`.
+`https://rangozoro.goatcounter.com`. Os eventos são disparados em `src/scripts/track.js`
+(usado por `pedido.js` e `app.js`). O script só roda no site publicado, não no `npm run dev`.
 
 ## Pendências antes de divulgar
 
