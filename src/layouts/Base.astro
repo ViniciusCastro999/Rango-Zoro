@@ -10,6 +10,11 @@ interface Props {
 const { titulo, descricao = 'O guia de todo lugar que faz comida em Conceição dos Ouros. Veja quem está aberto agora e peça direto no WhatsApp.' } = Astro.props;
 const canonica = new URL(Astro.url.pathname, Astro.site);
 const og = new URL(u('marca/og.svg'), Astro.site);
+
+// Contador de visitas e de pedidos por restaurante (GoatCounter, gratis, sem cookie).
+// Crie a conta em https://goatcounter.com com este codigo e o painel fica em
+// https://rangozoro.goatcounter.com  (troque abaixo se escolher outro codigo).
+const CONTADOR = 'rangozoro';
 ---
 
 <!doctype html>
@@ -54,5 +59,16 @@ const og = new URL(u('marca/og.svg'), Astro.site);
     <script>
       import '../scripts/app.js';
     </script>
+
+    {
+      import.meta.env.PROD && CONTADOR && (
+        <script
+          is:inline
+          data-goatcounter={`https://${CONTADOR}.goatcounter.com/count`}
+          async
+          src="https://gc.zgo.at/count.js"
+        />
+      )
+    }
   </body>
 </html>

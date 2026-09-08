@@ -4,8 +4,9 @@ Imagens em `identidade/instagram/img/`. Fonte editável dos posts: `artes.html`.
 Fonte da foto de perfil: `perfil-final.html`.
 (Abre no navegador, mexe no texto, roda o screenshot de novo.)
 
-Ordem sugerida de publicação: 1, 2, 4, 3, 5. Um por dia ou dia sim, dia não.
-Foto de perfil: `img/perfil.png`.
+Ordem sugerida: 1 (lançamento), 6 (por que), 7 (o site tá assim), 2 (como funciona),
+8 (monta o pedido), 4 (feedback), 3 (restaurantes), 9 (quanto custa), 5 (prévia).
+Um por dia ou dia sim, dia não. Foto de perfil: `img/perfil.png`.
 
 ## Post 1, Lançamento (`img/post-1-lancamento.png`)
 
@@ -65,6 +66,38 @@ A ideia: abriu o site, vê quem tá aberto, monta o pedido marcando os itens tip
 O que você acha? O que falta? Fala aí embaixo. 👇
 
 (e se você tem um lugar que entrega no Zoro, chama no direct que eu coloco de graça)
+
+## Post 6, Por que (`img/post-6-porque.png`)
+
+Aqui no Zoro ninguém tá no iFood. É tudo no WhatsApp: você fica caçando o cardápio que alguém mandou, não sabe quem tá aberto, nem quanto custa.
+
+E tem lugar bom que a cidade inteira nem sabe que existe, porque só é conhecido no bairro.
+
+O RangoZoro resolve as duas coisas: junta todo mundo numa tela só, mostra quem tá aberto agora e o cardápio com preço. De graça pro restaurante, sem taxa pra você.
+
+## Post 7, O site tá assim (`img/post-7-o-site.png`)
+
+Primeira versão já no ar (link na bio). Você abre e já vê a lista de quem faz e entrega comida no Zoro, com o horário e se tá aberto agora.
+
+Ainda tô cadastrando lugar e ajustando coisa. Dá uma olhada e me fala o que você acha, o que falta, o que tá estranho. 👇
+
+## Post 8, Como monta o pedido (`img/post-8-monta-pedido.png`)
+
+Entrou no lugar que quer, vai marcando os itens tipo uma listinha. O total soma sozinho, com a entrega.
+
+Aperta o botão e cai no WhatsApp do restaurante com o pedido escrito. Aí é só confirmar endereço e forma de pagamento com eles.
+
+Sem app, sem cadastro. Link na bio.
+
+## Post 9, Quanto custa (`img/post-9-quanto-custa.png`)
+
+Nada.
+
+Pra você: abre, escolhe e pede. Sem baixar app, sem cadastro, sem taxa.
+
+Pro restaurante: aparece pra cidade e recebe o pedido direto no WhatsApp. Sem comissão, sem intermediário.
+
+Se der certo e um dia tiver algum plano pago, vai ser só pra quem quiser aparecer em destaque. O básico continua de graça.
 
 ## Bio sugerida
 

@@ -1,4 +1,4 @@
-// Lógica de "aberto agora" no fuso de Zoro (America/Sao_Paulo).
+// Lógica de "aberto agora" no fuso do Zoro (America/Sao_Paulo).
 // JS puro de propósito: roda no build (Astro/Node) e no navegador sem duplicar.
 
 const DIAS = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
@@ -18,7 +18,7 @@ function minutos(hhmm) {
   return h * 60 + m;
 }
 
-/** Dia da semana (0=dom) e minutos desde a meia-noite, agora, em Zoro. */
+/** Dia da semana (0=dom) e minutos desde a meia-noite, agora, no Zoro. */
 export function agoraEmZoro(date = new Date()) {
   const partes = Object.fromEntries(
     new Intl.DateTimeFormat('en-US', {

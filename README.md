@@ -76,6 +76,19 @@ Os SVGs em `public/marca/` e `public/favicon.svg` são gerados por
 [`identidade/logos/gerar-marca.mjs`](identidade/logos/gerar-marca.mjs) com o texto já em
 contornos. Instruções no topo do arquivo.
 
+## Números de acesso
+
+O site usa **GoatCounter** (grátis, sem cookie, sem banner de privacidade). Ele conta:
+
+- quantas pessoas entram e em que páginas (cada página de restaurante mostra o interesse
+  naquele lugar);
+- um evento **`pedido/<slug>`** toda vez que alguém clica em "Pedir no WhatsApp", pra você
+  ver de qual restaurante vem mais pedido.
+
+Pra ligar: criar conta em https://goatcounter.com com o código `rangozoro` (ou outro, daí
+troque `CONTADOR` em `src/layouts/Base.astro`). O painel fica em
+`https://rangozoro.goatcounter.com`. O script só roda no site publicado, não no `npm run dev`.
+
 ## Pendências antes de divulgar
 
 - [ ] Trocar os WhatsApp `5535999990001` a `5535999990004` dos lugares de exemplo pelos

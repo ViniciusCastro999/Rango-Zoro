@@ -21,7 +21,7 @@ function linkWhatsapp(numero, texto) {
 }
 
 function iniciar(wrap) {
-  const { slug, whatsapp, mensagemVazia } = wrap.dataset;
+  const { slug, nome, whatsapp, mensagemVazia } = wrap.dataset;
   const entregaCents = wrap.dataset.entrega === '' ? null : centavos(wrap.dataset.entrega);
   const minimoCents = wrap.dataset.minimo === '' ? null : centavos(wrap.dataset.minimo);
   const chave = 'rz:pedido:' + slug;
@@ -97,6 +97,17 @@ function iniciar(wrap) {
     li.querySelector('[data-menos]').addEventListener('click', () => set(qtd() - 1));
     li.querySelector('[data-mais]').addEventListener('click', () => set(qtd() + 1));
     pintar();
+  });
+
+  // registra o clique no "Pedir no WhatsApp" (quantas pessoas pedem, e de qual lugar)
+  zap.addEventListener('click', () => {
+    const g = window.goatcounter;
+    if (g && typeof g.count === 'function') {
+      g.count({ path: 'pedido/' + slug, title: 'Pedido: ' + (nome || slug), event: true });
+      if (itensDoPedido().length > 0) {
+        g.count({ path: 'pedido-com-itens', title: 'Pedido com itens marcados', event: true });
+      }
+    }
   });
 
   // abre as seções que já têm item marcado
