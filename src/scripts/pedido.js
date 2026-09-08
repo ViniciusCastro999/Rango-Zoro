@@ -251,7 +251,12 @@ function iniciar(wrap) {
     lis.forEach((li) => {
       const q = carrinho[li.dataset.item];
       if (typeof q === 'number' && q > 0) {
-        out.push({ nome: li.dataset.nome, qtd: q, precoCents: centavos(li.dataset.preco) });
+        out.push({
+          nome: li.dataset.nome,
+          qtd: q,
+          precoCents: centavos(li.dataset.preco),
+          pizza: li.dataset.pizza === 'true',
+        });
       }
     });
     Object.entries(carrinho).forEach(([k, v]) => {
@@ -262,15 +267,15 @@ function iniciar(wrap) {
     return out;
   }
 
-  // linha do pedido no texto do WhatsApp: "X-Tudo", "2 X-Tudo",
-  // "uma pizza metade Calabresa e metade Portuguesa", "2 pizzas metade ..."
+  // linha do pedido no texto do WhatsApp:
+  //   "1 X-Tudo" · "2 Coca-Cola 2L"
+  //   "1 Pizza Calabresa" · "2 Pizzas Calabresa"
+  //   "1 Pizza meio a meio: Calabresa / Portuguesa"
   function linhaPedido(i) {
-    if (i.mm) {
-      return i.qtd === 1
-        ? `uma pizza metade ${i.a} e metade ${i.b}`
-        : `${i.qtd} pizzas metade ${i.a} e metade ${i.b}`;
-    }
-    return i.qtd === 1 ? i.nome : `${i.qtd} ${i.nome}`;
+    const pizza = i.qtd === 1 ? 'Pizza' : 'Pizzas';
+    if (i.mm) return `${i.qtd} ${pizza} meio a meio: ${i.a} / ${i.b}`;
+    if (i.pizza) return `${i.qtd} ${pizza} ${i.nome}`;
+    return `${i.qtd} ${i.nome}`;
   }
 
   function atualizar() {
@@ -305,8 +310,8 @@ function iniciar(wrap) {
     }
 
     // Mensagem do WhatsApp: só item e quantidade, sem valores (a loja calcula).
-    const texto =
-      'Gostaria de pedir:\n\n' + itens.map((i) => `- ${linhaPedido(i)}`).join('\n');
+    // Uma quebra de linha por item (o WhatsApp respeita %0A no texto pré-preenchido).
+    const texto = ['Gostaria de pedir:', ...itens.map(linhaPedido)].join('\n');
     zap.href = linkWhatsapp(whatsapp, texto);
     zap.textContent = `Pedir no WhatsApp · ${brl(totalCents)}`;
   }

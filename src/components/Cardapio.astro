@@ -37,6 +37,7 @@ const dataFmt = cardapio?.atualizado_em
       {cardapio!.categorias.map((cat) => {
         const comPreco = cat.itens.filter((i) => i.preco != null);
         const mm = interativo && cat.meio_a_meio && comPreco.length >= 2;
+        const ehPizza = !!cat.meio_a_meio || /pizza/i.test(cat.nome);
         return (
         <details class="cardapio__cat" open={!colapsar} data-cat={cat.nome}>
           <summary class="cardapio__cabeca">
@@ -78,6 +79,7 @@ const dataFmt = cardapio?.atualizado_em
                 data-item={interativo && it.preco != null ? `${cat.nome}::${ii}::${it.nome}` : undefined}
                 data-nome={it.nome}
                 data-preco={it.preco ?? undefined}
+                data-pizza={ehPizza ? 'true' : undefined}
               >
                 {interativo && it.preco != null ? (
                   <div class="item__linha">
