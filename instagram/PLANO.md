@@ -41,10 +41,10 @@ Eles repostam, e aí a rede cresce.
 7. **[Promo]** "{NOME} tá com {promoção} hoje. Corre que é só hoje. Link na bio."
 8. **[Pergunta]** "Qual lugar do Zoro tá faltando aqui no RangoZoro? Manda na caixinha que eu vou atrás."
 9. **[Marmita]** "Segunda de volta à rotina, marmita na conta. O Zoro tem {N} lugares de marmitex no site, com preço e horário. Peça até as 13h."
-10. **[Prova social]** "Semana passada o RangoZoro mandou mais de {N} pessoas direto pro WhatsApp dos restaurantes da cidade. Sem cobrar nada de ninguém. É isso."
+10. **[Prova social]** "Semana passada o RangoZoro mandou mais de {N} pessoas direto pro WhatsApp dos restaurantes da cidade. Bora crescer isso."
 
 ## Métrica que importa
 
 Cliques no botão "Pedir no WhatsApp" (dá pra medir com um contador simples no site depois).
-É esse número que você mostra pro dono do restaurante quando for falar de plano pago:
-"esse mês te mandei X clientes".
+É esse número que mostra se a ideia tá funcionando e o que dizer pro dono do restaurante:
+"esse mês o site te mandou X clientes".

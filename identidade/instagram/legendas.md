@@ -6,7 +6,7 @@ Foto de perfil: `img/perfil.png` (o ícone `rz.` no vermelho, gerado por
 (Abre no navegador, mexe no texto, roda o screenshot de novo.)
 
 Ordem sugerida: 1 (lançamento), 6 (por que), 7 (o site tá assim), 2 (como funciona),
-8 (monta o pedido), 4 (feedback), 3 (restaurantes), 9 (quanto custa), 5 (prévia).
+8 (monta o pedido), 4 (feedback), 3 (restaurantes), 9 (quanto custa pra você), 5 (prévia).
 Um por dia ou dia sim, dia não. Foto de perfil: `img/perfil.png`.
 
 ## Post 1, Lançamento (`img/post-1-lancamento.png`)
@@ -31,7 +31,7 @@ O RangoZoro não é mais um aplicativo de entrega. É um guia.
 2️⃣ Escolhe o lugar e vai marcando os itens no cardápio, tipo uma listinha
 3️⃣ Aperta um botão e cai no WhatsApp do restaurante com o pedido pronto
 
-A gente não entrega, não mexe no seu pagamento e não cobra comissão de ninguém. O restaurante recebe 100%.
+A gente não entrega e não mexe no seu pagamento. O pedido é sempre direto com o restaurante.
 
 Fica pronto em breve. 🍔
 
@@ -39,7 +39,7 @@ Fica pronto em breve. 🍔
 
 Recado pra quem tem restaurante, trailer, marmitex, açaiteria, o que for, em Conceição dos Ouros:
 
-Colocar seu lugar no RangoZoro é de graça. Você aparece pra cidade inteira e todo pedido cai direto no seu WhatsApp, sem comissão, sem intermediário.
+Coloca seu lugar no RangoZoro. Você aparece pra cidade inteira e todo pedido cai direto no seu WhatsApp.
 
 Só me manda no direct:
 · o cardápio (pode ser foto do impresso ou print)
@@ -66,7 +66,7 @@ A ideia: abriu o site, vê quem tá aberto, monta o pedido marcando os itens tip
 
 O que você acha? O que falta? Fala aí embaixo. 👇
 
-(e se você tem um lugar que entrega no Zoro, chama no direct que eu coloco de graça)
+(e se você tem um lugar que entrega no Zoro, chama no direct que eu coloco lá)
 
 ## Post 6, Por que (`img/post-6-porque.png`)
 
@@ -74,7 +74,7 @@ Aqui no Zoro ninguém tá no iFood. É tudo no WhatsApp: você fica caçando o c
 
 E tem lugar bom que a cidade inteira nem sabe que existe, porque só é conhecido no bairro.
 
-O RangoZoro resolve as duas coisas: junta todo mundo numa tela só, mostra quem tá aberto agora e o cardápio com preço. De graça pro restaurante, sem taxa pra você.
+O RangoZoro resolve as duas coisas: junta todo mundo numa tela só, mostra quem tá aberto agora e o cardápio com preço.
 
 ## Post 7, O site tá assim (`img/post-7-o-site.png`)
 
@@ -90,15 +90,13 @@ Aperta o botão e cai no WhatsApp do restaurante com o pedido escrito. Aí é s�
 
 Sem app, sem cadastro. Link na bio.
 
-## Post 9, Quanto custa (`img/post-9-quanto-custa.png`)
+## Post 9, Quanto custa pra você (`img/post-9-quanto-custa.png`)
 
 Nada.
 
-Pra você: abre, escolhe e pede. Sem baixar app, sem cadastro, sem taxa.
+Você abre o site, vê quem tá aberto agora, marca os itens e cai no WhatsApp do restaurante com o pedido pronto.
 
-Pro restaurante: aparece pra cidade e recebe o pedido direto no WhatsApp. Sem comissão, sem intermediário.
-
-Se der certo e um dia tiver algum plano pago, vai ser só pra quem quiser aparecer em destaque. O básico continua de graça.
+Sem baixar app, sem cadastro, sem senha. É só abrir e pedir.
 
 ## Bio sugerida
 

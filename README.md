@@ -2,7 +2,7 @@
 
 Guia de todo lugar que faz e entrega comida em **Conceição dos Ouros, MG** (a cidade que
 todo mundo chama de **Zoro**). Não é app de entrega: mostra quem está aberto agora e manda
-o pedido direto pro WhatsApp do restaurante. Sem comissão, sem intermediar pagamento.
+o pedido direto pro WhatsApp do restaurante. Não processa pagamento nem entra no meio do pedido.
 
 Site: **https://viniciuscastro999.github.io/Rango-Zoro/**
 

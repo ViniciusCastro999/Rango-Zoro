@@ -78,5 +78,5 @@ depois de mudar cor: `node identidade/logos/gerar-marca.mjs` (instruções no to
 - Nada de travessão no meio da frase. Usa vírgula, ponto ou parênteses.
 - Vazio e erro dão direção, sem drama: "Cardápio ainda não catalogado. Chama no WhatsApp
   que eles te passam tudo."
-- Deixar claro o modelo, sempre: "A gente não entrega nem cobra comissão. O pedido é
+- Deixar claro o modelo, sempre: "A gente não entrega nem processa pagamento. O pedido é
   direto com o restaurante."

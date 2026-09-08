@@ -105,7 +105,7 @@ fs.writeFileSync(`${OUT}/identidade/instagram/perfil-instagram.svg`, iconeRz(108
   <text x="84" y="288" font-family="'Courier New',monospace" font-size="26" letter-spacing="6" fill="#6b5546">DELIVERY · CONCEIÇÃO DOS OUROS-MG</text>
   <g transform="translate(80 430)">${l1.inner}</g>
   <g transform="translate(80 528)">${l2.inner}</g>
-  <text x="84" y="586" font-family="system-ui,-apple-system,'Helvetica Neue',sans-serif" font-size="32" fill="#6b5546">Achou, pediu no zap. Sem app, sem comissão.</text>
+  <text x="84" y="586" font-family="system-ui,-apple-system,'Helvetica Neue',sans-serif" font-size="32" fill="#6b5546">Achou, pediu no zap. Sem app, sem cadastro.</text>
 </svg>
 `);
 }
